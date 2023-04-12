@@ -14,7 +14,7 @@ export function LoginPage() {
             <h3>Senha</h3>
             <InputLogin type="password" placeholder="Digite sua senha" />
           </div>
-          <ButtonLogin>ENVIAR</ButtonLogin>
+          <ButtonLogin>CONFIRMAR</ButtonLogin>
           <h4>Ainda não possui login?</h4>
           {/* <Link to="" >Registre-se</Link> */}
         </form>
