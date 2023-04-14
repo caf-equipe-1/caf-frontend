@@ -1,6 +1,6 @@
-import { ButtonConfirm, InputLogin } from "./styles";
+import { ButtonConfirm, InputLogin } from "./register.styles";
 
-export function FormRegister() {
+export function Register() {
   return (
     <div>
       <h2>Faça o seu cadastro</h2>
