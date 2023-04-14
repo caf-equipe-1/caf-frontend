@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
-export const RegisterForm = styled.div`
-`
+export const RegisterForm = styled.div``;
 
 export const InputLogin = styled.input`
   padding: 8px;
