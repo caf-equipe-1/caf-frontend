@@ -3,7 +3,7 @@ import { UpdateDocumentDto } from "../../../../domain/dtos/document/updateDocume
 import { Document } from "../../../../domain/entities/document/document-entity";
 import { HttpResponse } from "../../../../domain/types/http/httpResponse-dto";
 
-export interface DoeumentRouterInterface {
+export interface DocumentRouterInterface {
   create(documentInfo: CreateDocumentDto): Promise<HttpResponse<Document>>;
   update(
     documentId: string,
