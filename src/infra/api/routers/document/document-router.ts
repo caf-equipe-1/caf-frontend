@@ -1,8 +1,8 @@
-import { CreateDocumentDto } from "../../../domain/dtos/document/createDocument-dto";
-import { UpdateDocumentDto } from "../../../domain/dtos/document/updateDocument-dto";
-import { Document } from "../../../domain/entities/document/document-entity";
-import { HttpResponse } from "../../../domain/types/http/httpResponse-dto";
-import { DocumentRouterInterface } from "../../abstract/routers/document/document-router-interface";
+import { CreateDocumentDto } from "../../../../domain/dtos/document/createDocument-dto";
+import { UpdateDocumentDto } from "../../../../domain/dtos/document/updateDocument-dto";
+import { Document } from "../../../../domain/entities/document/document-entity";
+import { HttpResponse } from "../../../../domain/types/http/httpResponse-dto";
+import { DocumentRouterInterface } from "../../../abstract/api/routers/document/document-router-interface";
 
 export class DocumentRouter implements DocumentRouterInterface {
   public create(

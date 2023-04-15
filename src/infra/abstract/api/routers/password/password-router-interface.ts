@@ -1,7 +1,7 @@
-import { CreatePasswordDto } from "../../../../domain/dtos/password/createPassword-dto";
-import { UpdatePasswordDto } from "../../../../domain/dtos/password/updatePassword-dto";
-import { Password } from "../../../../domain/entities/password/password-entity";
-import { HttpResponse } from "../../../../domain/types/http/httpResponse-dto";
+import { CreatePasswordDto } from "../../../../../domain/dtos/password/createPassword-dto";
+import { UpdatePasswordDto } from "../../../../../domain/dtos/password/updatePassword-dto";
+import { Password } from "../../../../../domain/entities/password/password-entity";
+import { HttpResponse } from "../../../../../domain/types/http/httpResponse-dto";
 
 export interface PasswordRouterInterface {
   create(passwordInfo: CreatePasswordDto): Promise<HttpResponse<Password>>;

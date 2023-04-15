@@ -1,8 +1,8 @@
-import { CreateCardDto } from "../../../domain/dtos/card/createCard-dto";
-import { UpdateCardDto } from "../../../domain/dtos/card/updateCard-dto";
-import { Card } from "../../../domain/entities/card/card-entity";
-import { HttpResponse } from "../../../domain/types/http/httpResponse-dto";
-import { CardRouterInterface } from "../../abstract/routers/card/card-router-interface";
+import { CreateCardDto } from "../../../../domain/dtos/card/createCard-dto";
+import { UpdateCardDto } from "../../../../domain/dtos/card/updateCard-dto";
+import { Card } from "../../../../domain/entities/card/card-entity";
+import { HttpResponse } from "../../../../domain/types/http/httpResponse-dto";
+import { CardRouterInterface } from "../../../abstract/api/routers/card/card-router-interface";
 
 export class CardRouter implements CardRouterInterface {
   public create(cardInfo: CreateCardDto): Promise<HttpResponse<Card>> {

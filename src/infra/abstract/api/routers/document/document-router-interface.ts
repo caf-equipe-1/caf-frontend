@@ -1,7 +1,7 @@
-import { CreateDocumentDto } from "../../../../domain/dtos/document/createDocument-dto";
-import { UpdateDocumentDto } from "../../../../domain/dtos/document/updateDocument-dto";
-import { Document } from "../../../../domain/entities/document/document-entity";
-import { HttpResponse } from "../../../../domain/types/http/httpResponse-dto";
+import { CreateDocumentDto } from "../../../../../domain/dtos/document/createDocument-dto";
+import { UpdateDocumentDto } from "../../../../../domain/dtos/document/updateDocument-dto";
+import { Document } from "../../../../../domain/entities/document/document-entity";
+import { HttpResponse } from "../../../../../domain/types/http/httpResponse-dto";
 
 export interface DocumentRouterInterface {
   create(documentInfo: CreateDocumentDto): Promise<HttpResponse<Document>>;
