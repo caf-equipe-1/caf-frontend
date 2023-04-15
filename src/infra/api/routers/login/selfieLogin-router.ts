@@ -27,12 +27,16 @@ export class SelfieLoginRouter implements SelfieLoginRouterInterface {
   public async login(
     loginInfo: SelfieLoginDto
   ): Promise<HttpResponse<LoggedUserDto> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
-    const response = await this.httpRequest.post(apiLink, loginInfo);
-    const token = response.body.token;
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
+      const response = await this.httpRequest.post(apiLink, loginInfo);
+      const token = response.body.token;
 
-    this.tokenStorage.store(token);
+      this.tokenStorage.store(token);
 
-    return response;
+      return response;
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 }

@@ -28,40 +28,60 @@ export class CardRouter implements CardRouterInterface {
   public async create(
     cardInfo: CreateCardDto
   ): Promise<HttpResponse<Card> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.post(apiLink, cardInfo, authorization);
+      return await this.httpRequest.post(apiLink, cardInfo, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async update(
     cardId: string,
     cardInfo: UpdateCardDto
   ): Promise<HttpResponse<Card> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}/${cardId}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}/${cardId}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.patch(apiLink, cardInfo, authorization);
+      return await this.httpRequest.patch(apiLink, cardInfo, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async delete(cardId: string): Promise<HttpResponse<Card> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}/${cardId}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}/${cardId}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.delete(apiLink, authorization);
+      return await this.httpRequest.delete(apiLink, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async getOne(cardId: string): Promise<HttpResponse<Card> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}/${cardId}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}/${cardId}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.get(apiLink, authorization);
+      return await this.httpRequest.get(apiLink, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async getAll(): Promise<HttpResponse<Card[]> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.get(apiLink, authorization);
+      return await this.httpRequest.get(apiLink, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 }

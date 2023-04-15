@@ -28,32 +28,48 @@ export class UserRouter implements UserRouterInterface {
   public async create(
     userInfo: CreateUserDto
   ): Promise<HttpResponse<User> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
 
-    return await this.httpRequest.post(apiLink, userInfo);
+      return await this.httpRequest.post(apiLink, userInfo);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async update(
     userId: string,
     userInfo: UpdateUserDto
   ): Promise<HttpResponse<User> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}/${userId}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}/${userId}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.patch(apiLink, userInfo, authorization);
+      return await this.httpRequest.patch(apiLink, userInfo, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async delete(userId: string): Promise<HttpResponse<User> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}/${userId}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}/${userId}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.delete(apiLink, authorization);
+      return await this.httpRequest.delete(apiLink, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async getOne(userId: string): Promise<HttpResponse<User> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}/${userId}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}/${userId}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.get(apiLink, authorization);
+      return await this.httpRequest.get(apiLink, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 }

@@ -28,50 +28,70 @@ export class PasswordRouter implements PasswordRouterInterface {
   public async create(
     passwordInfo: CreatePasswordDto
   ): Promise<HttpResponse<Password> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.post(apiLink, passwordInfo, authorization);
+      return await this.httpRequest.post(apiLink, passwordInfo, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async update(
     passwordId: string,
     passwordInfo: UpdatePasswordDto
   ): Promise<HttpResponse<Password> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${
-      this.route
-    }/${passwordId}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${
+        this.route
+      }/${passwordId}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.patch(apiLink, passwordInfo, authorization);
+      return await this.httpRequest.patch(apiLink, passwordInfo, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async delete(
     passwordId: string
   ): Promise<HttpResponse<Password> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${
-      this.route
-    }/${passwordId}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${
+        this.route
+      }/${passwordId}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.delete(apiLink, authorization);
+      return await this.httpRequest.delete(apiLink, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async getOne(
     passwordId: string
   ): Promise<HttpResponse<Password> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${
-      this.route
-    }/${passwordId}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${
+        this.route
+      }/${passwordId}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.get(apiLink, authorization);
+      return await this.httpRequest.get(apiLink, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async getAll(): Promise<HttpResponse<Password[]> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.get(apiLink, authorization);
+      return await this.httpRequest.get(apiLink, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 }

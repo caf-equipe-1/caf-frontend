@@ -28,50 +28,70 @@ export class DocumentRouter implements DocumentRouterInterface {
   public async create(
     documentInfo: CreateDocumentDto
   ): Promise<HttpResponse<Document> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.post(apiLink, documentInfo, authorization);
+      return await this.httpRequest.post(apiLink, documentInfo, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async update(
     documentId: string,
     documentInfo: UpdateDocumentDto
   ): Promise<HttpResponse<Document> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${
-      this.route
-    }/${documentId}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${
+        this.route
+      }/${documentId}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.patch(apiLink, documentInfo, authorization);
+      return await this.httpRequest.patch(apiLink, documentInfo, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async delete(
     documentId: string
   ): Promise<HttpResponse<Document> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${
-      this.route
-    }/${documentId}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${
+        this.route
+      }/${documentId}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.delete(apiLink, authorization);
+      return await this.httpRequest.delete(apiLink, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async getOne(
     documentId: string
   ): Promise<HttpResponse<Document> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${
-      this.route
-    }/${documentId}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${
+        this.route
+      }/${documentId}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.get(apiLink, authorization);
+      return await this.httpRequest.get(apiLink, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 
   public async getAll(): Promise<HttpResponse<Document[]> | Message> {
-    const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
-    const authorization = this.tokenStorage.getAuthorization();
+    try {
+      const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
+      const authorization = this.tokenStorage.getAuthorization();
 
-    return await this.httpRequest.get(apiLink, authorization);
+      return await this.httpRequest.get(apiLink, authorization);
+    } catch (error: any) {
+      return { error: true, message: error.message };
+    }
   }
 }
