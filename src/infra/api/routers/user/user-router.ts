@@ -2,6 +2,7 @@ import { CreateUserDto } from "../../../../domain/dtos/user/createUser-dto";
 import { UpdateUserDto } from "../../../../domain/dtos/user/updateUser-dto";
 import { User } from "../../../../domain/entities/user/user-entity";
 import { HttpResponse } from "../../../../domain/types/http/httpResponse-dto";
+import { Message } from "../../../../domain/types/message/message.type";
 import { ApiConnectionInterface } from "../../../abstract/api/connection/apiConnection-interface";
 import { UserRouterInterface } from "../../../abstract/api/routers/user/user-router-interface";
 import { HttpRequestAdapterInterface } from "../../../abstract/helpers/adapters/httpRequest-adapter-interface";
@@ -24,7 +25,9 @@ export class UserRouter implements UserRouterInterface {
     this.route = "users";
   }
 
-  public async create(userInfo: CreateUserDto): Promise<HttpResponse<User>> {
+  public async create(
+    userInfo: CreateUserDto
+  ): Promise<HttpResponse<User> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
 
     return await this.httpRequest.post(apiLink, userInfo);
@@ -33,21 +36,21 @@ export class UserRouter implements UserRouterInterface {
   public async update(
     userId: string,
     userInfo: UpdateUserDto
-  ): Promise<HttpResponse<User>> {
+  ): Promise<HttpResponse<User> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${this.route}/${userId}`;
     const authorization = this.tokenStorage.getAuthorization();
 
     return await this.httpRequest.patch(apiLink, userInfo, authorization);
   }
 
-  public async delete(userId: string): Promise<HttpResponse<User>> {
+  public async delete(userId: string): Promise<HttpResponse<User> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${this.route}/${userId}`;
     const authorization = this.tokenStorage.getAuthorization();
 
     return await this.httpRequest.delete(apiLink, authorization);
   }
 
-  public async getOne(userId: string): Promise<HttpResponse<User>> {
+  public async getOne(userId: string): Promise<HttpResponse<User> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${this.route}/${userId}`;
     const authorization = this.tokenStorage.getAuthorization();
 

@@ -1,6 +1,7 @@
 import { EmailLoginDto } from "../../../../domain/dtos/login/emailLogin-dto";
 import { LoggedUserDto } from "../../../../domain/dtos/login/loggedUser-dto";
 import { HttpResponse } from "../../../../domain/types/http/httpResponse-dto";
+import { Message } from "../../../../domain/types/message/message.type";
 import { ApiConnectionInterface } from "../../../abstract/api/connection/apiConnection-interface";
 import { EmailLoginRouterInterface } from "../../../abstract/api/routers/login/emailLogin-router-interface";
 import { HttpRequestAdapterInterface } from "../../../abstract/helpers/adapters/httpRequest-adapter-interface";
@@ -25,7 +26,7 @@ export class EmailLoginRouter implements EmailLoginRouterInterface {
 
   public async login(
     loginInfo: EmailLoginDto
-  ): Promise<HttpResponse<LoggedUserDto>> {
+  ): Promise<HttpResponse<LoggedUserDto> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
     const response = await this.httpRequest.post(apiLink, loginInfo);
     const token = response.body.token;

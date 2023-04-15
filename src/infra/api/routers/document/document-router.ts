@@ -2,6 +2,7 @@ import { CreateDocumentDto } from "../../../../domain/dtos/document/createDocume
 import { UpdateDocumentDto } from "../../../../domain/dtos/document/updateDocument-dto";
 import { Document } from "../../../../domain/entities/document/document-entity";
 import { HttpResponse } from "../../../../domain/types/http/httpResponse-dto";
+import { Message } from "../../../../domain/types/message/message.type";
 import { ApiConnectionInterface } from "../../../abstract/api/connection/apiConnection-interface";
 import { DocumentRouterInterface } from "../../../abstract/api/routers/document/document-router-interface";
 import { HttpRequestAdapterInterface } from "../../../abstract/helpers/adapters/httpRequest-adapter-interface";
@@ -26,7 +27,7 @@ export class DocumentRouter implements DocumentRouterInterface {
 
   public async create(
     documentInfo: CreateDocumentDto
-  ): Promise<HttpResponse<Document>> {
+  ): Promise<HttpResponse<Document> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
     const authorization = this.tokenStorage.getAuthorization();
 
@@ -36,7 +37,7 @@ export class DocumentRouter implements DocumentRouterInterface {
   public async update(
     documentId: string,
     documentInfo: UpdateDocumentDto
-  ): Promise<HttpResponse<Document>> {
+  ): Promise<HttpResponse<Document> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${
       this.route
     }/${documentId}`;
@@ -45,7 +46,9 @@ export class DocumentRouter implements DocumentRouterInterface {
     return await this.httpRequest.patch(apiLink, documentInfo, authorization);
   }
 
-  public async delete(documentId: string): Promise<HttpResponse<Document>> {
+  public async delete(
+    documentId: string
+  ): Promise<HttpResponse<Document> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${
       this.route
     }/${documentId}`;
@@ -54,7 +57,9 @@ export class DocumentRouter implements DocumentRouterInterface {
     return await this.httpRequest.delete(apiLink, authorization);
   }
 
-  public async getOne(documentId: string): Promise<HttpResponse<Document>> {
+  public async getOne(
+    documentId: string
+  ): Promise<HttpResponse<Document> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${
       this.route
     }/${documentId}`;
@@ -63,7 +68,7 @@ export class DocumentRouter implements DocumentRouterInterface {
     return await this.httpRequest.get(apiLink, authorization);
   }
 
-  public async getAll(): Promise<HttpResponse<Document[]>> {
+  public async getAll(): Promise<HttpResponse<Document[]> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
     const authorization = this.tokenStorage.getAuthorization();
 

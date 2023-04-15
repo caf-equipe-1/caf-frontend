@@ -2,6 +2,7 @@ import { CreateCardDto } from "../../../../domain/dtos/card/createCard-dto";
 import { UpdateCardDto } from "../../../../domain/dtos/card/updateCard-dto";
 import { Card } from "../../../../domain/entities/card/card-entity";
 import { HttpResponse } from "../../../../domain/types/http/httpResponse-dto";
+import { Message } from "../../../../domain/types/message/message.type";
 import { ApiConnectionInterface } from "../../../abstract/api/connection/apiConnection-interface";
 import { CardRouterInterface } from "../../../abstract/api/routers/card/card-router-interface";
 import { HttpRequestAdapterInterface } from "../../../abstract/helpers/adapters/httpRequest-adapter-interface";
@@ -24,7 +25,9 @@ export class CardRouter implements CardRouterInterface {
     this.route = "cards";
   }
 
-  public async create(cardInfo: CreateCardDto): Promise<HttpResponse<Card>> {
+  public async create(
+    cardInfo: CreateCardDto
+  ): Promise<HttpResponse<Card> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
     const authorization = this.tokenStorage.getAuthorization();
 
@@ -34,28 +37,28 @@ export class CardRouter implements CardRouterInterface {
   public async update(
     cardId: string,
     cardInfo: UpdateCardDto
-  ): Promise<HttpResponse<Card>> {
+  ): Promise<HttpResponse<Card> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${this.route}/${cardId}`;
     const authorization = this.tokenStorage.getAuthorization();
 
     return await this.httpRequest.patch(apiLink, cardInfo, authorization);
   }
 
-  public async delete(cardId: string): Promise<HttpResponse<Card>> {
+  public async delete(cardId: string): Promise<HttpResponse<Card> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${this.route}/${cardId}`;
     const authorization = this.tokenStorage.getAuthorization();
 
     return await this.httpRequest.delete(apiLink, authorization);
   }
 
-  public async getOne(cardId: string): Promise<HttpResponse<Card>> {
+  public async getOne(cardId: string): Promise<HttpResponse<Card> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${this.route}/${cardId}`;
     const authorization = this.tokenStorage.getAuthorization();
 
     return await this.httpRequest.get(apiLink, authorization);
   }
 
-  public async getAll(): Promise<HttpResponse<Card[]>> {
+  public async getAll(): Promise<HttpResponse<Card[]> | Message> {
     const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
     const authorization = this.tokenStorage.getAuthorization();
 
