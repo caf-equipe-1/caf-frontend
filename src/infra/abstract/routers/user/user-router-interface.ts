@@ -8,5 +8,4 @@ export interface UserRouterInterface {
   update(userId: string, userInfo: UpdateUserDto): Promise<HttpResponse<User>>;
   delete(userId: string): Promise<HttpResponse<User>>;
   getOne(userId: string): Promise<HttpResponse<User>>;
-  getAll(): Promise<HttpResponse<User[]>>;
 }
