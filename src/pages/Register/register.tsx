@@ -7,7 +7,7 @@ import {
   RegisterFormImg,
   RegisterFormLabelCPF,
 } from "./register.styles";
-import CAFImg from "../../../Img/CAFImg.jpg";
+import CAFImg from "../../Img/CAFImg.jpg";
 
 export function Register() {
   return (

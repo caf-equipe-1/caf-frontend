@@ -6,7 +6,7 @@ import {
   LoginFormButton,
   LoginFormImg,
 } from "./login.styles";
-import CAFImg from "../../../Img/CAFImg.jpg";
+import CAFImg from "../../Img/CAFImg.jpg";
 export default function Login() {
   return (
     <>
