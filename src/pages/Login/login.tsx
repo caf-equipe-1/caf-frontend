@@ -20,7 +20,11 @@ export function Login() {
   function handleLogin() {
     const loginRouter = makeEmailLoginRouterFactory();
 
-    loginRouter.login(loginData);
+    loginRouter.login(loginData).then(function (data) {
+      if (data.error) {
+        alert(data.message);
+      }
+    });
   }
 
   return (

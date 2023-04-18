@@ -28,7 +28,11 @@ export function Register() {
   function handleRegistration() {
     const userRegistrationRouter = makeUserRouterFactory();
 
-    userRegistrationRouter.create(userInfo);
+    userRegistrationRouter.create(userInfo).then(function (data) {
+      if (data.error) {
+        alert(data.message);
+      }
+    });
   }
 
   return (
@@ -80,7 +84,9 @@ export function Register() {
             <h3>Foto</h3>
             <ImageInput onChange={setImage} />
           </div>
-          <ButtonConfirm>CONFIRMAR</ButtonConfirm>
+          <ButtonConfirm onClick={() => handleRegistration()}>
+            CONFIRMAR
+          </ButtonConfirm>
           <h4>Já possui login?</h4>
           <ButtonRegister onClick={() => navigate("/")}>
             Faça login
