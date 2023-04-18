@@ -17,3 +17,7 @@ export const FooterText = styled.div`
   font-size: 15px;
   margin: 10px;
 `;
+
+export const FooterMargin = styled.img`
+  height: 70px;
+`;
