@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useNavigate } from "react-router";
 import {
   ButtonConfirm,
   ButtonRegister,
@@ -7,12 +7,8 @@ import {
   StyledLoginPage,
 } from "./styles";
 
-export default function Login() {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  function handleModal() {
-    setIsOpen(!isOpen);
-  }
+export function Login() {
+  const navigate = useNavigate();
 
   return (
     <>
@@ -26,7 +22,9 @@ export default function Login() {
             </div>
             <ButtonConfirm>CONFIRMAR</ButtonConfirm>
             <h4>Ainda não possui login?</h4>
-            <ButtonRegister onClick={handleModal}>Registre-se</ButtonRegister>
+            <ButtonRegister onClick={() => navigate("register")}>
+              Registre-se
+            </ButtonRegister>
           </form>
         </StyledLoginBox>
       </StyledLoginPage>

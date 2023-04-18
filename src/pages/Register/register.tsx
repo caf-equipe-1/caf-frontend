@@ -1,40 +1,34 @@
+import { useNavigate } from "react-router";
 import {
-  RegisterFormLabel,
-  RegisterFormButton,
-  RegisterFormInput,
-  General,
-  RegisterForm,
-  RegisterFormImg,
-  RegisterFormLabelCPF,
-} from "./register.styles";
-import CAFImg from "../../Img/CAFImg.jpg";
+  ButtonConfirm,
+  ButtonRegister,
+  InputLogin,
+  StyledLoginBox,
+  StyledLoginPage,
+} from "./styles";
 
 export function Register() {
+  const navigate = useNavigate();
   return (
     <>
-      <RegisterFormImg src={CAFImg} alt="" />
-      <General>
-        <RegisterForm>
-          <RegisterFormLabel>Nome</RegisterFormLabel>
-          <RegisterFormInput placeholder="Insira eu nome" />
-        </RegisterForm>
-
-        <RegisterForm>
-          <RegisterFormLabelCPF>CPF</RegisterFormLabelCPF>
-          <RegisterFormInput placeholder="Insira eu nome" />
-        </RegisterForm>
-
-        <RegisterForm>
-          <RegisterFormLabel>E-mail</RegisterFormLabel>
-          <RegisterFormInput placeholder="Insira eu nome" />
-        </RegisterForm>
-
-        <RegisterForm>
-          <RegisterFormLabel>Senha</RegisterFormLabel>
-          <RegisterFormInput placeholder="Insira eu nome" />
-        </RegisterForm>
-        <RegisterFormButton>Cadastrar</RegisterFormButton>
-      </General>
+      <StyledLoginPage>
+        <StyledLoginBox>
+          <h2>REGISTRO</h2>
+          <form>
+            <div>
+              <h3>E-mail</h3>
+              <InputLogin type="text" placeholder="Digite seu e-mail" />
+            </div>
+            <div>
+              <h3>Senha</h3>
+              <InputLogin type="text" placeholder="Digite sua senha" />
+            </div>
+            <ButtonConfirm>CONFIRMAR</ButtonConfirm>
+            <h4>Já possui login?</h4>
+            <ButtonRegister onClick={() => navigate("/")}>Login</ButtonRegister>
+          </form>
+        </StyledLoginBox>
+      </StyledLoginPage>
     </>
   );
 }
