@@ -1,28 +1,35 @@
+import { useState } from "react";
 import {
-  General,
-  LoginFormLabel,
-  LoginFormInput,
-  LoginForm,
-  LoginFormButton,
-  LoginFormImg,
-} from "./login.styles";
-import CAFImg from "../../Img/CAFImg.jpg";
+  ButtonConfirm,
+  ButtonRegister,
+  InputLogin,
+  StyledLoginBox,
+  StyledLoginPage,
+} from "./styles";
+
 export default function Login() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  function handleModal() {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <>
-      <LoginFormImg src={CAFImg} alt="" />
-      <General>
-        <LoginForm>
-          <LoginFormLabel>E-mail</LoginFormLabel>
-          <LoginFormInput type="text" placeholder="insira seu Email" />
-        </LoginForm>
-
-        <LoginForm>
-          <LoginFormLabel>Senha</LoginFormLabel>
-          <LoginFormInput type="text" placeholder="insira sua senha" />
-        </LoginForm>
-        <LoginFormButton>Entrar</LoginFormButton>
-      </General>
+      <StyledLoginPage>
+        <StyledLoginBox>
+          <h2>LOGIN</h2>
+          <form>
+            <div>
+              <h3>E-mail</h3>
+              <InputLogin type="text" placeholder="Digite seu e-mail" />
+            </div>
+            <ButtonConfirm>CONFIRMAR</ButtonConfirm>
+            <h4>Ainda não possui login?</h4>
+            <ButtonRegister onClick={handleModal}>Registre-se</ButtonRegister>
+          </form>
+        </StyledLoginBox>
+      </StyledLoginPage>
     </>
   );
 }
