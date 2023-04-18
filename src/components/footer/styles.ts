@@ -1,12 +1,17 @@
 import styled from "styled-components";
 
-export const FooterDiv = styled.div`
-  background-color: #000042;
+export const FooterBody = styled.div`
+  background-color: #35d592;
+  display: flex;
+  justify-content: center;
   color: white;
-  position: fixed;
   width: 100%;
-  text-align: left;
-  bottom: 0;
-  padding: 5px;
-  margin: 0;
+  height: fit-content;
+`;
+
+export const FooterText = styled.div`
+  font-weight: bold;
+  color: white;
+  font-size: 15px;
+  margin: 10px;
 `;

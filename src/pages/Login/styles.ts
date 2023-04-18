@@ -4,20 +4,15 @@ export const StyledLoginPage = styled.div`
   /* background-color: #00002e;
   color: #c9c5c9; */
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
-
+  padding: 20px 0 20px 0;
+  width: 100%;
   h2 {
     margin-bottom: 30px;
   }
-
   h3 {
     margin-top: 10px;
   }
-
   h4 {
     margin-top: 10px;
     text-align: center;
@@ -29,8 +24,9 @@ export const StyledLoginBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 400px;
-  height: 450px;
+  width: fit-content;
+  height: fit-content;
+  padding: 40px;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 10px 20px rgba(0, 0, 0, 0.24);
 `;
@@ -56,18 +52,17 @@ export const ButtonConfirm = styled.button`
   background-color: #000042;
   color: #c9c5c9;
   transition: all 0.2s;
-
   :hover {
     scale: 1.2;
   }
 `;
 
 export const ButtonRegister = styled.button`
-display: flex;
+  display: flex;
   margin: 10px auto;
   padding: 12px;
   border: none;
   cursor: pointer;
   font-weight: 600;
   background-color: transparent;
-`
+`;
