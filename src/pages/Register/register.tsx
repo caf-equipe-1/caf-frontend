@@ -9,6 +9,7 @@ import {
 import { makeUserRouterFactory } from "../../infra/api/factories/user/user-router-factory";
 import { useState } from "react";
 import { CreateUserDto } from "../../domain/dtos/user/createUser-dto";
+import { ImageInput } from "../../components/ImageInput";
 
 export function Register() {
   const navigate = useNavigate();
@@ -19,6 +20,10 @@ export function Register() {
     password: "",
     photo: "",
   });
+
+  function setImage(convertedImage: string) {
+    setUserInfo({ ...userInfo, photo: convertedImage });
+  }
 
   function handleRegistration() {
     const userRegistrationRouter = makeUserRouterFactory();
@@ -70,6 +75,10 @@ export function Register() {
                 setUserInfo({ ...userInfo, password: event.target.value })
               }
             />
+          </div>
+          <div>
+            <h3>Foto</h3>
+            <ImageInput onChange={setImage} />
           </div>
           <ButtonConfirm>CONFIRMAR</ButtonConfirm>
           <h4>Já possui login?</h4>
