@@ -7,6 +7,8 @@ export const FooterBody = styled.div`
   color: white;
   width: 100%;
   height: fit-content;
+  position: fixed;
+  bottom: 0;
 `;
 
 export const FooterText = styled.div`
