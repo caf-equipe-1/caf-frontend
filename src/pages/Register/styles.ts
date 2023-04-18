@@ -5,7 +5,7 @@ export const StyledRegisterPage = styled.div`
   color: #c9c5c9; */
   display: flex;
   justify-content: center;
-  padding: 20px 0 20px 0;
+  padding: 20px 0 60px 0;
   width: 100%;
   h2 {
     margin-bottom: 30px;
