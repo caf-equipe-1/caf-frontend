@@ -7,7 +7,6 @@ export const StyledRegisterPage = styled.div`
   justify-content: center;
   padding: 20px 0 20px 0;
   width: 100%;
-  height: 100%;
   h2 {
     margin-bottom: 30px;
   }
@@ -25,8 +24,9 @@ export const StyledRegisterBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 400px;
-  height: 450px;
+  width: fit-content;
+  height: fit-content;
+  padding: 40px;
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 10px 20px rgba(0, 0, 0, 0.24);
 `;
