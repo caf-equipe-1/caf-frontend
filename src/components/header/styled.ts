@@ -4,7 +4,9 @@ export const HeaderBody = styled.div`
  display: flex; 
   background-color: #35d592;
   width: 100%;
-  padding 5px
+  padding 5px;
+  position: fixed;
+  top: 0;
 `;
 
 export const HeaderTitle = styled.div`
@@ -17,4 +19,8 @@ export const HeaderTitle = styled.div`
 export const HeaderLogo = styled.img`
   height: 50px;
   border-radius: 100%;
+`;
+
+export const HeaderMargin = styled.img`
+  height: 70px;
 `;

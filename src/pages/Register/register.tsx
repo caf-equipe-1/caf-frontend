@@ -9,7 +9,7 @@ import {
 import { makeUserRouterFactory } from "../../infra/api/factories/user/user-router-factory";
 import { useState } from "react";
 import { CreateUserDto } from "../../domain/dtos/user/createUser-dto";
-import { ImageInput } from "../../components/ImageInput";
+import { ImageInput } from "../../components/imageInput";
 
 export function Register() {
   const navigate = useNavigate();
