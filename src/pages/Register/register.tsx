@@ -39,7 +39,7 @@ export function Register() {
     <StyledRegisterPage>
       <StyledRegisterBox>
         <h2>REGISTRO</h2>
-        <form>
+        <div>
           <div>
             <h3>Nome</h3>
             <InputRegister
@@ -73,7 +73,7 @@ export function Register() {
           <div>
             <h3>Senha</h3>
             <InputRegister
-              type="text"
+              type="password"
               placeholder="Digite sua senha"
               onChange={(event) =>
                 setUserInfo({ ...userInfo, password: event.target.value })
@@ -91,7 +91,7 @@ export function Register() {
           <ButtonRegister onClick={() => navigate("/")}>
             Faça login
           </ButtonRegister>
-        </form>
+        </div>
       </StyledRegisterBox>
     </StyledRegisterPage>
   );
