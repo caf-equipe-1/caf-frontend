@@ -27,7 +27,7 @@ export class DocumentRouter implements DocumentRouterInterface {
 
   public async create(
     documentInfo: CreateDocumentDto
-  ): Promise<HttpResponse<Document> | Message> {
+  ): Promise<HttpResponse<Document> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
       const authorization = this.tokenStorage.getAuthorization();
@@ -41,7 +41,7 @@ export class DocumentRouter implements DocumentRouterInterface {
   public async update(
     documentId: string,
     documentInfo: UpdateDocumentDto
-  ): Promise<HttpResponse<Document> | Message> {
+  ): Promise<HttpResponse<Document> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${
         this.route
@@ -56,7 +56,7 @@ export class DocumentRouter implements DocumentRouterInterface {
 
   public async delete(
     documentId: string
-  ): Promise<HttpResponse<Document> | Message> {
+  ): Promise<HttpResponse<Document> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${
         this.route
@@ -71,7 +71,7 @@ export class DocumentRouter implements DocumentRouterInterface {
 
   public async getOne(
     documentId: string
-  ): Promise<HttpResponse<Document> | Message> {
+  ): Promise<HttpResponse<Document> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${
         this.route
@@ -84,7 +84,7 @@ export class DocumentRouter implements DocumentRouterInterface {
     }
   }
 
-  public async getAll(): Promise<HttpResponse<Document[]> | Message> {
+  public async getAll(): Promise<HttpResponse<Document[]> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
       const authorization = this.tokenStorage.getAuthorization();
