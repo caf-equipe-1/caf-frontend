@@ -19,5 +19,5 @@ export const FooterText = styled.div`
 `;
 
 export const FooterMargin = styled.img`
-  height: 70px;
+  height: 80px;
 `;
