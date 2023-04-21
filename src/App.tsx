@@ -5,7 +5,7 @@ import { Register } from "./pages/Register/register";
 import { Header } from "./components/header";
 import { Footer } from "./components/footer";
 import { Services } from "./pages/services/services";
-import Instructions from "./pages/Instructions/instructions";
+import { Instructions } from "./pages/Instructions/instructions";
 
 export function App() {
   return (

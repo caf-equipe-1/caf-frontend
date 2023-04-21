@@ -1,7 +1,9 @@
-export default function Instructions() {
+import { InstructionsDiv } from "./styles";
+
+export function Instructions() {
   return (
     <>
-      <p>teste</p>
+      <InstructionsDiv></InstructionsDiv>
     </>
   );
 }
