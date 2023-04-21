@@ -8,12 +8,15 @@ type Props = {
 };
 
 export function Title({ title, homePageButton = true }: Props) {
+  const homeElement = homePageButton ? (
+    <HomeNavigateButton key={0} />
+  ) : (
+    <div key={0} />
+  );
+
   return (
     <FlexBody
-      components={[
-        <> {homePageButton ? <HomeNavigateButton /> : <></>} </>,
-        <StyledTitle>{title}</StyledTitle>,
-      ]}
+      components={[homeElement, <StyledTitle key={1}>{title}</StyledTitle>]}
     />
   );
 }
