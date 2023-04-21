@@ -1,10 +1,5 @@
 import { FileInput } from "../FileInput";
-import {
-  ButtonConfirm,
-  InputLogin,
-  StyledLoginBox,
-  StyledLoginPage,
-} from "./styles";
+import { StyledButton, StyledInput, StyledBox, StyledPage } from "./styles";
 
 type Props = {
   title: string;
@@ -38,7 +33,7 @@ export function Form({ title, fields, buttons, finalContent }: Props) {
         default:
           <div key={index}>
             <h3>{field.label}</h3>
-            <InputLogin
+            <StyledInput
               onChange={(event) => field.onChangeCallback(event.target.value)}
               type={field.inputType}
               placeholder={field.placeholder}
@@ -51,12 +46,12 @@ export function Form({ title, fields, buttons, finalContent }: Props) {
   function renderButtons() {
     return buttons.map(function (button, index) {
       return (
-        <ButtonConfirm
+        <StyledButton
           style={{ backgroundColor: button.color }}
           onClick={() => button.onClickCallback()}
         >
           {button.label}
-        </ButtonConfirm>
+        </StyledButton>
       );
     });
   }
@@ -67,16 +62,16 @@ export function Form({ title, fields, buttons, finalContent }: Props) {
 
   return (
     <>
-      <StyledLoginPage>
-        <StyledLoginBox>
+      <StyledPage>
+        <StyledBox>
           <h2>{title}</h2>
           <div>
             {renderFields()}
             {renderButtons()}
             {renderFinalContent()}
           </div>
-        </StyledLoginBox>
-      </StyledLoginPage>
+        </StyledBox>
+      </StyledPage>
     </>
   );
 }

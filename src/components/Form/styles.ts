@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledLoginPage = styled.div`
+export const StyledPage = styled.div`
   /* background-color: #00002e;
   color: #c9c5c9; */
   display: flex;
@@ -18,7 +18,7 @@ export const StyledLoginPage = styled.div`
   }
 `;
 
-export const StyledLoginBox = styled.div`
+export const StyledBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,7 +30,7 @@ export const StyledLoginBox = styled.div`
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 10px 20px rgba(0, 0, 0, 0.24);
 `;
 
-export const InputLogin = styled.input`
+export const StyledInput = styled.input`
   padding: 8px;
   width: 100%;
   margin: 10px;
@@ -40,7 +40,7 @@ export const InputLogin = styled.input`
   background-color: transparent;
 `;
 
-export const ButtonConfirm = styled.button`
+export const StyledButton = styled.button`
   display: flex;
   margin: 10px auto;
   padding: 12px;
@@ -54,14 +54,4 @@ export const ButtonConfirm = styled.button`
   :hover {
     scale: 1.2;
   }
-`;
-
-export const ButtonRegister = styled.button`
-  display: flex;
-  margin: 10px auto;
-  padding: 12px;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  background-color: transparent;
 `;
