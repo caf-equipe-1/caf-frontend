@@ -16,7 +16,7 @@ export const Instructionli = styled.li`
 `;
 export const InstructionButton = styled.button`
   margin-top: 20px;
-  margin-left: 40%;
+  margin-left: 42%;
   width: 200px;
   height: 30px;
   &:hover {
