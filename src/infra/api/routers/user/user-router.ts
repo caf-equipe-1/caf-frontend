@@ -27,7 +27,7 @@ export class UserRouter implements UserRouterInterface {
 
   public async create(
     userInfo: CreateUserDto
-  ): Promise<HttpResponse<User> | Message> {
+  ): Promise<HttpResponse<User> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
 
@@ -40,7 +40,7 @@ export class UserRouter implements UserRouterInterface {
   public async update(
     userId: string,
     userInfo: UpdateUserDto
-  ): Promise<HttpResponse<User> | Message> {
+  ): Promise<HttpResponse<User> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}/${userId}`;
       const authorization = this.tokenStorage.getAuthorization();
@@ -51,7 +51,7 @@ export class UserRouter implements UserRouterInterface {
     }
   }
 
-  public async delete(userId: string): Promise<HttpResponse<User> | Message> {
+  public async delete(userId: string): Promise<HttpResponse<User> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}/${userId}`;
       const authorization = this.tokenStorage.getAuthorization();
@@ -62,7 +62,7 @@ export class UserRouter implements UserRouterInterface {
     }
   }
 
-  public async getOne(userId: string): Promise<HttpResponse<User> | Message> {
+  public async getOne(userId: string): Promise<HttpResponse<User> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}/${userId}`;
       const authorization = this.tokenStorage.getAuthorization();

@@ -27,7 +27,7 @@ export class PasswordRouter implements PasswordRouterInterface {
 
   public async create(
     passwordInfo: CreatePasswordDto
-  ): Promise<HttpResponse<Password> | Message> {
+  ): Promise<HttpResponse<Password> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
       const authorization = this.tokenStorage.getAuthorization();
@@ -41,7 +41,7 @@ export class PasswordRouter implements PasswordRouterInterface {
   public async update(
     passwordId: string,
     passwordInfo: UpdatePasswordDto
-  ): Promise<HttpResponse<Password> | Message> {
+  ): Promise<HttpResponse<Password> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${
         this.route
@@ -56,7 +56,7 @@ export class PasswordRouter implements PasswordRouterInterface {
 
   public async delete(
     passwordId: string
-  ): Promise<HttpResponse<Password> | Message> {
+  ): Promise<HttpResponse<Password> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${
         this.route
@@ -71,7 +71,7 @@ export class PasswordRouter implements PasswordRouterInterface {
 
   public async getOne(
     passwordId: string
-  ): Promise<HttpResponse<Password> | Message> {
+  ): Promise<HttpResponse<Password> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${
         this.route
@@ -84,11 +84,11 @@ export class PasswordRouter implements PasswordRouterInterface {
     }
   }
 
-  public async getAll(): Promise<HttpResponse<Password[]> | Message> {
+  public async getAll(): Promise<HttpResponse<Password[]> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
       const authorization = this.tokenStorage.getAuthorization();
-
+      console.log(await this.httpRequest.get(apiLink, authorization));
       return await this.httpRequest.get(apiLink, authorization);
     } catch (error: any) {
       return { error: true, message: error.message };

@@ -5,14 +5,12 @@ import { HttpResponse } from "../../../../../domain/types/http/httpResponse-dto"
 import { Message } from "../../../../../domain/types/message/message.type";
 
 export interface PasswordRouterInterface {
-  create(
-    passwordInfo: CreatePasswordDto
-  ): Promise<HttpResponse<Password> | Message>;
+  create(passwordInfo: CreatePasswordDto): Promise<HttpResponse<Password>>;
   update(
     passwordId: string,
     passwordInfo: UpdatePasswordDto
-  ): Promise<HttpResponse<Password> | Message>;
-  delete(passwordId: string): Promise<HttpResponse<Password> | Message>;
-  getOne(passwordId: string): Promise<HttpResponse<Password> | Message>;
-  getAll(): Promise<HttpResponse<Password[]> | Message>;
+  ): Promise<HttpResponse<Password>>;
+  delete(passwordId: string): Promise<HttpResponse<Password>>;
+  getOne(passwordId: string): Promise<HttpResponse<Password>>;
+  getAll(): Promise<HttpResponse<Password[]>>;
 }

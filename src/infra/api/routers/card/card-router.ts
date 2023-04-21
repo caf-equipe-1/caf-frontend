@@ -27,7 +27,7 @@ export class CardRouter implements CardRouterInterface {
 
   public async create(
     cardInfo: CreateCardDto
-  ): Promise<HttpResponse<Card> | Message> {
+  ): Promise<HttpResponse<Card> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
       const authorization = this.tokenStorage.getAuthorization();
@@ -41,7 +41,7 @@ export class CardRouter implements CardRouterInterface {
   public async update(
     cardId: string,
     cardInfo: UpdateCardDto
-  ): Promise<HttpResponse<Card> | Message> {
+  ): Promise<HttpResponse<Card> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}/${cardId}`;
       const authorization = this.tokenStorage.getAuthorization();
@@ -52,7 +52,7 @@ export class CardRouter implements CardRouterInterface {
     }
   }
 
-  public async delete(cardId: string): Promise<HttpResponse<Card> | Message> {
+  public async delete(cardId: string): Promise<HttpResponse<Card> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}/${cardId}`;
       const authorization = this.tokenStorage.getAuthorization();
@@ -63,7 +63,7 @@ export class CardRouter implements CardRouterInterface {
     }
   }
 
-  public async getOne(cardId: string): Promise<HttpResponse<Card> | Message> {
+  public async getOne(cardId: string): Promise<HttpResponse<Card> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}/${cardId}`;
       const authorization = this.tokenStorage.getAuthorization();
@@ -74,7 +74,7 @@ export class CardRouter implements CardRouterInterface {
     }
   }
 
-  public async getAll(): Promise<HttpResponse<Card[]> | Message> {
+  public async getAll(): Promise<HttpResponse<Card[]> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
       const authorization = this.tokenStorage.getAuthorization();
