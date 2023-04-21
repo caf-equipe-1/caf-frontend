@@ -5,6 +5,7 @@ import { HttpResponse } from "../../domain/types/http/httpResponse-dto";
 import { makePasswordRouterFactory } from "../../infra/api/factories/password/password-router-factory";
 import { Password } from "../../domain/entities/password/password-entity";
 import { Card } from "../../components/card";
+import { ActionsTitle } from "../../components/actionsTitle";
 
 export function Passwords() {
   const [passwords, setPasswords] = useState<Password[]>([]);
@@ -26,6 +27,10 @@ export function Passwords() {
 
   function editPassword(passwordId: string) {
     alert("Implementar navegação para página de edição.");
+  }
+
+  function createPassword() {
+    alert("Implementar navegação para página de criação.");
   }
 
   function renderCards() {
@@ -55,6 +60,7 @@ export function Passwords() {
   return (
     <>
       <Title title="Senhas:" />
+      <ActionsTitle createEntityCallback={createPassword} />
       <FlexBody components={renderCards()} />
     </>
   );
