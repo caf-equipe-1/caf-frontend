@@ -8,15 +8,24 @@ import { Card } from "../../components/card";
 
 export function Passwords() {
   const [passwords, setPasswords] = useState<Password[]>([]);
+  const passwordRouter = makePasswordRouterFactory();
 
   function getPasswordsFromApi() {
-    const router = makePasswordRouterFactory();
-
-    router.getAll().then(function (response: HttpResponse<Password[]>) {
+    passwordRouter.getAll().then(function (response: HttpResponse<Password[]>) {
       if (response.body) {
         setPasswords(response.body);
       }
     });
+  }
+
+  function deletePassword(passwordId: string) {
+    passwordRouter.delete(passwordId).then(() => {
+      getPasswordsFromApi();
+    });
+  }
+
+  function editPassword(passwordId: string) {
+    alert("Implementar navegação para página de edição.");
   }
 
   function renderCards() {
@@ -24,6 +33,7 @@ export function Passwords() {
       return (
         <Card
           title={password.name}
+          entityId={password.id}
           content={[
             {
               label: "Senha",
@@ -31,6 +41,8 @@ export function Passwords() {
             },
           ]}
           key={index}
+          deleteCallback={deletePassword}
+          editCallback={editPassword}
         />
       );
     });

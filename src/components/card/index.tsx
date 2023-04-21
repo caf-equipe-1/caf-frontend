@@ -17,13 +17,22 @@ import editButtonIcon from "../../Img/components/edit-button.png";
 
 type Props = {
   title: string;
+  entityId: string;
   content: {
     label: string;
     text: string;
   }[];
+  editCallback: (entityId: string) => void;
+  deleteCallback: (entityId: string) => void;
 };
 
-export function Card({ title, content }: Props) {
+export function Card({
+  title,
+  content,
+  entityId,
+  deleteCallback,
+  editCallback,
+}: Props) {
   function renderContent() {
     return content.map(function (item, index) {
       return (
@@ -49,10 +58,10 @@ export function Card({ title, content }: Props) {
       <FlexBody
         components={[
           <StyledActionButtonsBody>
-            <StyledEditButton onClick={() => {}}>
+            <StyledEditButton onClick={() => editCallback(entityId)}>
               <StyledButtonIcon src={editButtonIcon} />
             </StyledEditButton>
-            <StyledDeleteButton onClick={() => {}}>
+            <StyledDeleteButton onClick={() => deleteCallback(entityId)}>
               <StyledButtonIcon src={deleteButtonIcon} />
             </StyledDeleteButton>
           </StyledActionButtonsBody>,
