@@ -57,7 +57,7 @@ export function Card({
     return (
       <FlexBody
         components={[
-          <StyledActionButtonsBody>
+          <StyledActionButtonsBody key={0}>
             <StyledEditButton onClick={() => editCallback(entityId)}>
               <StyledButtonIcon src={editButtonIcon} />
             </StyledEditButton>
