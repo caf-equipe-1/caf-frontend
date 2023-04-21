@@ -46,7 +46,7 @@ export function Services() {
 
   return (
     <>
-      <Title title="Serviços:" />
+      <Title title="Serviços:" homePageButton={false} />
       <FlexBody components={renderServiceMenu()} />
     </>
   );
