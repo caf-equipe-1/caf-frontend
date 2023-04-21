@@ -9,11 +9,13 @@ import {
   StyledActionButtonsBody,
   StyledEditButton,
   StyledDeleteButton,
+  StyledDownloadButton,
 } from "./styles";
 import { FlexBody } from "../flexBody";
 import copyButtonIcon from "../../Img/components/copy-button.png";
 import deleteButtonIcon from "../../Img/components/delete-button.png";
 import editButtonIcon from "../../Img/components/edit-button.png";
+import downloadButtonIcon from "../../Img/components/download-button.png";
 
 type Props = {
   title: string;
@@ -22,16 +24,20 @@ type Props = {
     label: string;
     text: string;
   }[];
+  downloadButton?: boolean;
   editCallback: (entityId: string) => void;
   deleteCallback: (entityId: string) => void;
+  downloadCallback?: (entityId: string) => void;
 };
 
 export function Card({
   title,
   content,
   entityId,
+  downloadButton,
   deleteCallback,
   editCallback,
+  downloadCallback,
 }: Props) {
   function renderContent() {
     return content.map(function (item, index) {
@@ -53,11 +59,22 @@ export function Card({
     });
   }
 
+  function renderDownloadButton() {
+    return downloadButton && downloadCallback ? (
+      <StyledDownloadButton onClick={() => downloadCallback(entityId)}>
+        <StyledButtonIcon src={downloadButtonIcon} />
+      </StyledDownloadButton>
+    ) : (
+      <></>
+    );
+  }
+
   function renderActionButtons() {
     return (
       <FlexBody
         components={[
           <StyledActionButtonsBody key={0}>
+            {renderDownloadButton()}
             <StyledEditButton onClick={() => editCallback(entityId)}>
               <StyledButtonIcon src={editButtonIcon} />
             </StyledEditButton>

@@ -33,16 +33,22 @@ export function Documents() {
     alert("Implementar navegação para página de criação.");
   }
 
+  function downloadDocument(documentId: string) {
+    alert("Implementar download de documentos.");
+  }
+
   function renderCards() {
     return documents.map(function (document, index) {
       return (
         <Card
-          title={document.name}
+          title={""}
           entityId={document.id}
-          content={[]}
+          content={[{ label: "Nome", text: document.name }]}
           key={index}
           deleteCallback={deleteDocument}
           editCallback={editDocument}
+          downloadButton={true}
+          downloadCallback={downloadDocument}
         />
       );
     });

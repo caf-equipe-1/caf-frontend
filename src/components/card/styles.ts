@@ -69,6 +69,21 @@ export const StyledEditButton = styled.button`
   box-shadow: 2px 2px 4px gray;
 `;
 
+export const StyledDownloadButton = styled.button`
+  height: 40px;
+  width: 40px;
+  background-color: LimeGreen;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  margin: auto;
+  :hover {
+    scale: 1.03;
+    background-color: Lime;
+  }
+  box-shadow: 2px 2px 4px gray;
+`;
+
 export const StyledDeleteButton = styled.button`
   height: 40px;
   width: 40px;
