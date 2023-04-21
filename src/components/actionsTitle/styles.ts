@@ -18,6 +18,7 @@ export const AddEntityButton = styled.button`
     scale: 1.1;
     background-color: Chartreuse;
   }
+  box-shadow: 2px 2px 4px gray;
 `;
 
 export const AddEntityButtonIcon = styled.img`

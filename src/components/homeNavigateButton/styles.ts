@@ -11,6 +11,7 @@ export const StyledButton = styled.button`
     scale: 1.1;
     background-color: red;
   }
+  box-shadow: 2px 2px 4px gray;
 `;
 
 export const StyledButtonIcon = styled.img`

@@ -10,6 +10,7 @@ export const StyledCardBody = styled.div`
   :hover {
     border-color: yellow;
   }
+  box-shadow: 2px 2px 6px black;
 `;
 
 export const StyledCardTitle = styled.div`
@@ -50,6 +51,7 @@ export const StyledCopyButton = styled.button`
     scale: 1.03;
     background-color: lightblue;
   }
+  box-shadow: 2px 2px 4px gray;
 `;
 
 export const StyledEditButton = styled.button`
@@ -64,6 +66,7 @@ export const StyledEditButton = styled.button`
     scale: 1.03;
     background-color: lightblue;
   }
+  box-shadow: 2px 2px 4px gray;
 `;
 
 export const StyledDeleteButton = styled.button`
@@ -78,6 +81,7 @@ export const StyledDeleteButton = styled.button`
     scale: 1.03;
     background-color: lightblue;
   }
+  box-shadow: 2px 2px 4px gray;
 `;
 
 export const StyledButtonIcon = styled.img`

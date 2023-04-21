@@ -22,6 +22,7 @@ export const StyledServiceCardIconDiv = styled.div`
     scale: 1.2;
     background-color: lightgreen;
   }
+  box-shadow: 7px 5px 7px gray;
 `;
 
 export const StyledServiceIcon = styled.img`
