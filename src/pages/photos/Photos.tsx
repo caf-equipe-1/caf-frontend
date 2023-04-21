@@ -1,5 +1,9 @@
-import "./style";
+import { PhotoDiv } from "./style";
 
 export function Photos() {
-  return <></>;
+  return (
+    <>
+      <PhotoDiv></PhotoDiv>
+    </>
+  );
 }
