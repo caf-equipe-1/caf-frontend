@@ -1,10 +1,10 @@
-import { FileInput } from "./styles";
+import { StyledFileInput } from "./styles";
 
 interface Props {
   onChange: (convertedImage: any) => void;
 }
 
-export function ImageInput({ onChange }: Props) {
+export function FileInput({ onChange }: Props) {
   function handleFileInputChange(event: any) {
     const file = event.target.files[0];
 
@@ -15,5 +15,5 @@ export function ImageInput({ onChange }: Props) {
     reader.readAsDataURL(file);
   }
 
-  return <FileInput type="file" onChange={handleFileInputChange} />;
+  return <StyledFileInput type="file" onChange={handleFileInputChange} />;
 }

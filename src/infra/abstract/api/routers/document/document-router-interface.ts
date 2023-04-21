@@ -5,14 +5,12 @@ import { HttpResponse } from "../../../../../domain/types/http/httpResponse-dto"
 import { Message } from "../../../../../domain/types/message/message.type";
 
 export interface DocumentRouterInterface {
-  create(
-    documentInfo: CreateDocumentDto
-  ): Promise<HttpResponse<Document> | Message>;
+  create(documentInfo: CreateDocumentDto): Promise<HttpResponse<Document>>;
   update(
     documentId: string,
     documentInfo: UpdateDocumentDto
-  ): Promise<HttpResponse<Document> | Message>;
-  delete(documentId: string): Promise<HttpResponse<Document> | Message>;
-  getOne(documentId: string): Promise<HttpResponse<Document> | Message>;
-  getAll(): Promise<HttpResponse<Document[]> | Message>;
+  ): Promise<HttpResponse<Document>>;
+  delete(documentId: string): Promise<HttpResponse<Document>>;
+  getOne(documentId: string): Promise<HttpResponse<Document>>;
+  getAll(): Promise<HttpResponse<Document[]>>;
 }

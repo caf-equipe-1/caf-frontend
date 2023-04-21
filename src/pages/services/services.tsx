@@ -1,7 +1,5 @@
 import {
-  StyledServicesBody,
   StyledServiceCard,
-  StyledTitle,
   StyledServiceIcon,
   StyledServiceLabel,
   StyledServiceCardIconDiv,
@@ -9,20 +7,27 @@ import {
 import documentIcon from "../../Img/services/document.png";
 import creditCardIcon from "../../Img/services/credit-card.png";
 import passwordIcon from "../../Img/services/password.png";
+import { Title } from "../../components/title";
+import { FlexBody } from "../../components/flexBody";
+import { useNavigate } from "react-router-dom";
 
 export function Services() {
+  const navigate = useNavigate();
   const services = [
     {
       icon: documentIcon,
       label: "DOCUMENTOS",
+      route: "/documents",
     },
     {
       icon: creditCardIcon,
       label: "CARTÕES",
+      route: "/cards",
     },
     {
       icon: passwordIcon,
       label: "SENHAS",
+      route: "/passwords",
     },
   ];
 
@@ -30,7 +35,7 @@ export function Services() {
     return services.map(function (service, index) {
       return (
         <StyledServiceCard key={index}>
-          <StyledServiceCardIconDiv>
+          <StyledServiceCardIconDiv onClick={() => navigate(service.route)}>
             <StyledServiceIcon src={service.icon} />
           </StyledServiceCardIconDiv>
           <StyledServiceLabel>{service.label}</StyledServiceLabel>
@@ -41,8 +46,8 @@ export function Services() {
 
   return (
     <>
-      <StyledTitle>Serviços:</StyledTitle>
-      <StyledServicesBody>{renderServiceMenu()}</StyledServicesBody>
+      <Title title="Serviços:" />
+      <FlexBody components={renderServiceMenu()} />
     </>
   );
 }

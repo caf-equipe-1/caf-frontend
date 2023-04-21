@@ -4,7 +4,5 @@ import { HttpResponse } from "../../../../../domain/types/http/httpResponse-dto"
 import { Message } from "../../../../../domain/types/message/message.type";
 
 export interface SelfieLoginRouterInterface {
-  login(
-    loginInfo: SelfieLoginDto
-  ): Promise<HttpResponse<LoggedUserDto> | Message>;
+  login(loginInfo: SelfieLoginDto): Promise<HttpResponse<LoggedUserDto>>;
 }

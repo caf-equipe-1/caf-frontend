@@ -26,7 +26,7 @@ export class EmailLoginRouter implements EmailLoginRouterInterface {
 
   public async login(
     loginInfo: EmailLoginDto
-  ): Promise<HttpResponse<LoggedUserDto> | Message> {
+  ): Promise<HttpResponse<LoggedUserDto> | any> {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
       const response = await this.httpRequest.post(apiLink, loginInfo);
