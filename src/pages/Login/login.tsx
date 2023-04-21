@@ -1,14 +1,9 @@
 import { useNavigate } from "react-router";
-import {
-  ButtonConfirm,
-  ButtonRegister,
-  InputLogin,
-  StyledLoginBox,
-  StyledLoginPage,
-} from "./styles";
+import { ButtonRegister } from "./styles";
 import { useState } from "react";
 import { EmailLoginDto } from "../../domain/dtos/login/emailLogin-dto";
 import { makeEmailLoginRouterFactory } from "../../infra/api/factories/login/emailLogin-router-factory";
+import { Form } from "../../components/Form";
 
 export function Login() {
   const navigate = useNavigate();
@@ -30,42 +25,47 @@ export function Login() {
     });
   }
 
+  function onEmailChange(inputEmail: string) {
+    setLoginData({ ...loginData, email: inputEmail });
+  }
+
+  function onPasswordChange(inputPassword: string) {
+    setLoginData({ ...loginData, password: inputPassword });
+  }
+
   return (
-    <>
-      <StyledLoginPage>
-        <StyledLoginBox>
-          <h2>LOGIN</h2>
-          <div>
-            <div>
-              <h3>E-mail</h3>
-              <InputLogin
-                onChange={(event) =>
-                  setLoginData({ ...loginData, email: event.target.value })
-                }
-                type="text"
-                placeholder="Digite seu e-mail"
-              />
-            </div>
-            <div>
-              <h3>Senha</h3>
-              <InputLogin
-                onChange={(event) =>
-                  setLoginData({ ...loginData, password: event.target.value })
-                }
-                type="password"
-                placeholder="Digite sua senha"
-              />
-            </div>
-            <ButtonConfirm onClick={() => handleLogin()}>
-              CONFIRMAR
-            </ButtonConfirm>
-            <h4>Ainda não possui login?</h4>
-            <ButtonRegister onClick={() => navigate("register")}>
-              Registre-se
-            </ButtonRegister>
-          </div>
-        </StyledLoginBox>
-      </StyledLoginPage>
-    </>
+    <Form
+      title="LOGIN"
+      fields={[
+        {
+          inputType: "text",
+          label: "E-mail",
+          placeholder: "Digite seu e-mail",
+          onChangeCallback: onEmailChange,
+        },
+        {
+          inputType: "password",
+          label: "Senha",
+          placeholder: "Digite sua senha",
+          onChangeCallback: onPasswordChange,
+        },
+      ]}
+      buttons={[
+        {
+          label: "CONFIRMAR",
+          color: "white",
+          backGroundColor: "MidnightBlue",
+          onClickCallback: handleLogin,
+        },
+      ]}
+      finalContent={
+        <div>
+          <h4>Ainda não possui login?</h4>
+          <ButtonRegister onClick={() => navigate("register")}>
+            Registre-se
+          </ButtonRegister>
+        </div>
+      }
+    />
   );
 }

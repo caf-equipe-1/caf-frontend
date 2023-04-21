@@ -1,15 +1,9 @@
 import { useNavigate } from "react-router";
-import {
-  ButtonConfirm,
-  ButtonRegister,
-  InputRegister,
-  StyledRegisterBox,
-  StyledRegisterPage,
-} from "./styles";
+import { ButtonRegister } from "./styles";
 import { makeUserRouterFactory } from "../../infra/api/factories/user/user-router-factory";
 import { useState } from "react";
 import { CreateUserDto } from "../../domain/dtos/user/createUser-dto";
-import { FileInput } from "../../components/FileInput";
+import { Form } from "../../components/Form";
 
 export function Register() {
   const navigate = useNavigate();
@@ -20,10 +14,6 @@ export function Register() {
     password: "",
     photo: "",
   });
-
-  function setImage(convertedImage: string) {
-    setUserInfo({ ...userInfo, photo: convertedImage });
-  }
 
   function handleRegistration() {
     const userRegistrationRouter = makeUserRouterFactory();
@@ -38,64 +28,77 @@ export function Register() {
     });
   }
 
+  function onNameChange(inputName: string) {
+    setUserInfo({ ...userInfo, name: inputName });
+  }
+
+  function onEmailChange(inputEmail: string) {
+    setUserInfo({ ...userInfo, email: inputEmail });
+  }
+
+  function onCpfChange(inputCpf: string) {
+    setUserInfo({ ...userInfo, cpf: inputCpf.toString() });
+  }
+
+  function onPasswordChange(inputPassword: string) {
+    setUserInfo({ ...userInfo, password: inputPassword });
+  }
+
+  function onImageChange(convertedImage: string) {
+    setUserInfo({ ...userInfo, photo: convertedImage });
+  }
+
   return (
-    <StyledRegisterPage>
-      <StyledRegisterBox>
-        <h2>REGISTRO</h2>
+    <Form
+      title="REGISTRO"
+      fields={[
+        {
+          label: "Nome",
+          inputType: "text",
+          placeholder: "Digite o seu nome",
+          onChangeCallback: onNameChange,
+        },
+        {
+          label: "Email",
+          inputType: "text",
+          placeholder: "Digite o seu email",
+          onChangeCallback: onEmailChange,
+        },
+        {
+          label: "CPF",
+          inputType: "number",
+          placeholder: "Digite o seu CPF",
+          onChangeCallback: onCpfChange,
+        },
+        {
+          label: "Senha",
+          inputType: "password",
+          placeholder: "Digite a sua senha",
+          onChangeCallback: onPasswordChange,
+        },
+        {
+          label: "Foto",
+          inputType: "file",
+          placeholder: "",
+          onChangeCallback: onImageChange,
+        },
+      ]}
+      buttons={[
+        {
+          label: "CONFIRMAR",
+          onClickCallback: handleRegistration,
+          color: "white",
+          backGroundColor: "MidnightBlue",
+        },
+      ]}
+      finalContent={
         <div>
-          <div>
-            <h3>Nome</h3>
-            <InputRegister
-              type="text"
-              placeholder="Digite seu nome"
-              onChange={(event) =>
-                setUserInfo({ ...userInfo, name: event.target.value })
-              }
-            />
-          </div>
-          <div>
-            <h3>E-mail</h3>
-            <InputRegister
-              type="text"
-              placeholder="Digite seu e-mail"
-              onChange={(event) =>
-                setUserInfo({ ...userInfo, email: event.target.value })
-              }
-            />
-          </div>
-          <div>
-            <h3>CPF</h3>
-            <InputRegister
-              type="number"
-              placeholder="Digite seu CPF"
-              onChange={(event) =>
-                setUserInfo({ ...userInfo, cpf: event.target.value.toString() })
-              }
-            />
-          </div>
-          <div>
-            <h3>Senha</h3>
-            <InputRegister
-              type="password"
-              placeholder="Digite sua senha"
-              onChange={(event) =>
-                setUserInfo({ ...userInfo, password: event.target.value })
-              }
-            />
-          </div>
-          <div>
-            <h3>Foto</h3>
-            <FileInput onChange={setImage} />
-          </div>
-          <ButtonConfirm onClick={() => handleRegistration()}>
-            CONFIRMAR
-          </ButtonConfirm>
           <h4>Já possui login?</h4>
           <ButtonRegister onClick={() => navigate("/")}>
             Faça login
           </ButtonRegister>
         </div>
-      </StyledRegisterBox>
-    </StyledRegisterPage>
+      }
+    />
   );
 }
