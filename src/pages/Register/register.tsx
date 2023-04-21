@@ -31,6 +31,9 @@ export function Register() {
     userRegistrationRouter.create(userInfo).then(function (data) {
       if (data.error) {
         alert(data.message);
+      } else {
+        alert("Registrado com sucesso!");
+        navigate("/");
       }
     });
   }

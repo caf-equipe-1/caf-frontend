@@ -23,6 +23,9 @@ export function Login() {
     loginRouter.login(loginData).then(function (data) {
       if (data.error) {
         alert(data.message);
+      } else {
+        alert("Login realizado com sucesso!");
+        navigate("/services");
       }
     });
   }
