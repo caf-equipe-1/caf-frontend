@@ -88,7 +88,6 @@ export class PasswordRouter implements PasswordRouterInterface {
     try {
       const apiLink = `${this.apiConnection.getLink()}/${this.route}`;
       const authorization = this.tokenStorage.getAuthorization();
-      console.log(await this.httpRequest.get(apiLink, authorization));
       return await this.httpRequest.get(apiLink, authorization);
     } catch (error: any) {
       return { error: true, message: error.message };
