@@ -5,7 +5,6 @@ type Props = {
   title: string;
   fields: {
     label: string;
-    fieldName: string;
     inputType: string;
     placeholder: string;
     onChangeCallback: (value: any) => void;
@@ -13,6 +12,7 @@ type Props = {
   buttons: {
     label: string;
     color: string;
+    backGroundColor: string;
     onClickCallback: () => void;
   }[];
   finalContent?: JSX.Element;
@@ -24,21 +24,23 @@ export function Form({ title, fields, buttons, finalContent }: Props) {
       switch (field.inputType) {
         case "file":
           return (
-            <div>
+            <div key={index}>
               <h3>{field.label}</h3>
               <FileInput onChange={field.onChangeCallback} />
             </div>
           );
 
         default:
-          <div key={index}>
-            <h3>{field.label}</h3>
-            <StyledInput
-              onChange={(event) => field.onChangeCallback(event.target.value)}
-              type={field.inputType}
-              placeholder={field.placeholder}
-            />
-          </div>;
+          return (
+            <div key={index}>
+              <h3>{field.label}</h3>
+              <StyledInput
+                onChange={(event) => field.onChangeCallback(event.target.value)}
+                type={field.inputType}
+                placeholder={field.placeholder}
+              />
+            </div>
+          );
       }
     });
   }
@@ -47,7 +49,11 @@ export function Form({ title, fields, buttons, finalContent }: Props) {
     return buttons.map(function (button, index) {
       return (
         <StyledButton
-          style={{ backgroundColor: button.color }}
+          key={index}
+          style={{
+            backgroundColor: button.backGroundColor,
+            color: button.color,
+          }}
           onClick={() => button.onClickCallback()}
         >
           {button.label}

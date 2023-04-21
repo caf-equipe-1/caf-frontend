@@ -48,8 +48,6 @@ export const StyledButton = styled.button`
   border: none;
   cursor: pointer;
   font-weight: 600;
-  background-color: #000042;
-  color: #c9c5c9;
   transition: all 0.2s;
   :hover {
     scale: 1.2;
