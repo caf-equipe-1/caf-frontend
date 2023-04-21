@@ -9,7 +9,7 @@ import {
 import { makeUserRouterFactory } from "../../infra/api/factories/user/user-router-factory";
 import { useState } from "react";
 import { CreateUserDto } from "../../domain/dtos/user/createUser-dto";
-import { ImageInput } from "../../components/imageInput";
+import { FileInput } from "../../components/FileInput";
 
 export function Register() {
   const navigate = useNavigate();
@@ -85,7 +85,7 @@ export function Register() {
           </div>
           <div>
             <h3>Foto</h3>
-            <ImageInput onChange={setImage} />
+            <FileInput onChange={setImage} />
           </div>
           <ButtonConfirm onClick={() => handleRegistration()}>
             CONFIRMAR
