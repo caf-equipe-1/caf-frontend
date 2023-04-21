@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import { Login } from "./pages/Login/login";
 import { Register } from "./pages/Register/register";
 import { Header } from "./components/header";
@@ -8,6 +7,8 @@ import { Services } from "./pages/Services/services";
 import { Documents } from "./pages/Documents/documents";
 import { Cards } from "./pages/Cards/cards";
 import { Passwords } from "./pages/Passwords/passwords";
+import { Instructions } from "./pages/Instructions/instructions";
+import { Photos } from "./pages/photos/Photos";
 
 export function App() {
   return (
@@ -21,6 +22,8 @@ export function App() {
           <Route path={"/documents"} element={<Documents />}></Route>
           <Route path={"/cards"} element={<Cards />}></Route>
           <Route path={"/passwords"} element={<Passwords />}></Route>
+          <Route path={"/instructions"} element={<Instructions />}></Route>
+          <Route path={"/photos"} element={<Photos />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>
