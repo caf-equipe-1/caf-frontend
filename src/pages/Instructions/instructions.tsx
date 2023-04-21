@@ -1,4 +1,4 @@
-import { InstructionsDiv } from "./styles";
+import { InstructionsDiv, instructionsList } from "./styles";
 
 export function Instructions() {
   return (
@@ -7,26 +7,26 @@ export function Instructions() {
         <h2>Agora é hora da selfie!!</h2>
         <h3>Siga as orientações abaixo:</h3>
         <ol>
-          <li>
+          <instructionsList>
             Encontre um lugar bem iluminado: escolha um ambiente com boa
             iluminação natural ou artificial para garantir que sua foto fique
             clara e nítida.
-          </li>
-          <li>
+          </instructionsList>
+          <instructionsList>
             Enquadre seu rosto: posicione o rosto no centro do quadro da câmera
             e mantenha-o em uma posição frontal, com a cabeça reta e os olhos
             abertos.
-          </li>
-          <li>
+          </instructionsList>
+          <instructionsList>
             Retire óculos e chapéus: se você usa óculos ou chapéu, retire-os
             antes de tirar a foto para garantir que seu rosto esteja totalmente
             visível.
-          </li>
-          <li>
+          </instructionsList>
+          <instructionsList>
             Evite sombras no rosto: evite que haja sombras no rosto que possam
             interferir na qualidade da foto. Certifique-se de que sua face
             esteja bem iluminada.
-          </li>
+          </instructionsList>
         </ol>
       </InstructionsDiv>
     </>
