@@ -1,20 +1,5 @@
 import styled from "styled-components";
 
-export const StyledTitle = styled.div`
-  color: #35d592;
-  margin: 20px auto auto auto;
-  width: fit-content;
-  font-weight: bold;
-  font-size: 40px;
-`;
-
-export const StyledServicesBody = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 0px 20px 0 20px;
-`;
-
 export const StyledServiceCard = styled.div`
   display: flex;
   justify-content: center;
