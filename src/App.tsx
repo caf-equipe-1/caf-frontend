@@ -3,7 +3,7 @@ import { Login } from "./pages/Login/login";
 import { Register } from "./pages/Register/register";
 import { Header } from "./components/header";
 import { Footer } from "./components/footer";
-import { Services } from "./pages/Services/services";
+import { Services } from "./pages/services/services";
 import { Documents } from "./pages/Documents/documents";
 import { Cards } from "./pages/Cards/cards";
 import { Passwords } from "./pages/Passwords/passwords";
