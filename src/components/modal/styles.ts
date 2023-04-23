@@ -9,13 +9,15 @@ export const StyledModal = styled.div`
   transform: translate(-50%, -50%);
   max-width: 90%;
   max-height: 90%;
-  overflow-y: scroll;
   box-shadow: 0px 0px 0px 2px gray;
   z-index: 9999;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const StyledModalBody = styled.div`
-  background-color: gray;
+  flex: 1;
+  overflow-y: scroll;
 `;
 
 export const StyledCloseButtonDiv = styled.div`
@@ -23,6 +25,9 @@ export const StyledCloseButtonDiv = styled.div`
   justify-content: flex-end;
   background-color: #35d592;
   padding: 5px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 `;
 
 export const StyledCloseButton = styled.div`

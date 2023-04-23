@@ -11,7 +11,7 @@ import closeButtonIcon from "../../Img/components/close-button.png";
 type Props = {
   show: boolean;
   setShowCallback: (showProperty: boolean) => void;
-  components: JSX.Element[];
+  components: JSX.Element;
 };
 
 export function Modal({ show, setShowCallback, components }: Props) {
@@ -26,9 +26,7 @@ export function Modal({ show, setShowCallback, components }: Props) {
           <StyledCloseButtonIcon src={closeButtonIcon} />
         </StyledCloseButton>
       </StyledCloseButtonDiv>
-      <StyledModalBody>
-        <FlexBody components={components} />
-      </StyledModalBody>
+      <StyledModalBody>{components}</StyledModalBody>
     </StyledModal>
   ) : (
     <></>
