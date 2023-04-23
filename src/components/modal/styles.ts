@@ -8,6 +8,7 @@ export const StyledModal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 90%;
+  min-width: 270px;
   max-height: 90%;
   box-shadow: 0px 0px 0px 2px gray;
   z-index: 9999;
