@@ -6,10 +6,29 @@ import { makeCardRouterFactory } from "../../infra/api/factories/card/card-route
 import { Card as CardEntity } from "../../domain/entities/card/card-entity";
 import { Card } from "../../components/card";
 import { ActionsTitle } from "../../components/actionsTitle";
+import { CreateCardDto } from "../../domain/dtos/card/createCard-dto";
+import { UpdateCardDto } from "../../domain/dtos/card/updateCard-dto";
+import { Form } from "../../components/Form";
+import { Modal } from "../../components/modal";
 
 export function Cards() {
   const [cards, setCards] = useState<CardEntity[]>([]);
   const cardRouter = makeCardRouterFactory();
+  const [openCreationModal, setOpenCreationModal] = useState<boolean>(false);
+  const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
+  const [createdCard, setCreatedCard] = useState<CreateCardDto>({
+    nickname: "",
+    name: "",
+    number: 0,
+    securityCode: 0,
+  });
+  const [updatedCard, setUpdatedCard] = useState<UpdateCardDto>({
+    nickname: "",
+    name: "",
+    number: 0,
+    securityCode: 0,
+  });
+  const [updatedCardId, setUpdatedCardId] = useState<string>("");
 
   function getCardsFromApi() {
     cardRouter.getAll().then(function (response: HttpResponse<CardEntity[]>) {
@@ -20,17 +39,11 @@ export function Cards() {
   }
 
   function deleteCard(cardId: string) {
-    cardRouter.delete(cardId).then(() => {
-      getCardsFromApi();
-    });
-  }
-
-  function editCard(cardId: string) {
-    alert("Implementar navegação para página de edição.");
-  }
-
-  function createCard() {
-    alert("Implementar navegação para página de criação.");
+    if (window.confirm("Deseja apagar esse cartão?")) {
+      cardRouter.delete(cardId).then(() => {
+        getCardsFromApi();
+      });
+    }
   }
 
   function renderCards() {
@@ -55,10 +68,176 @@ export function Cards() {
           ]}
           key={index}
           deleteCallback={deleteCard}
-          editCallback={editCard}
+          editCallback={openUpdateCardModal}
         />
       );
     });
+  }
+
+  function openCreateCardModal() {
+    setCreatedCard({
+      nickname: "",
+      name: "",
+      number: 0,
+      securityCode: 0,
+    });
+
+    setOpenCreationModal(true);
+  }
+
+  function createCard() {
+    cardRouter.create(createdCard).then(function (response) {
+      if (response.error) {
+        alert(response.message);
+      } else {
+        setOpenCreationModal(false);
+        getCardsFromApi();
+      }
+    });
+  }
+
+  function onNickameChangeCreate(inputNickname: string) {
+    setCreatedCard({ ...createdCard, nickname: inputNickname });
+  }
+
+  function onNameChangeCreate(inputName: string) {
+    setCreatedCard({ ...createdCard, name: inputName });
+  }
+
+  function onNumberChangeCreate(inputNumber: number) {
+    setCreatedCard({ ...createdCard, number: Number(inputNumber) });
+  }
+
+  function onSecurityCodeChangeCreate(inputSecurityCode: number) {
+    setCreatedCard({ ...createdCard, securityCode: Number(inputSecurityCode) });
+  }
+
+  function createCardForm() {
+    return (
+      <Form
+        title="Adicionar Cartão"
+        fields={[
+          {
+            label: "Nome",
+            inputType: "text",
+            onChangeCallback: onNickameChangeCreate,
+            placeholder: "Nome do Cartão",
+          },
+          {
+            label: "Titular",
+            inputType: "text",
+            onChangeCallback: onNameChangeCreate,
+            placeholder: "Nome impresso no cartão",
+          },
+          {
+            label: "Número",
+            inputType: "number",
+            onChangeCallback: onNumberChangeCreate,
+            placeholder: "Número do cartão",
+          },
+          {
+            label: "Código de segurança",
+            inputType: "number",
+            onChangeCallback: onSecurityCodeChangeCreate,
+            placeholder: "Código de segurança do cartão",
+          },
+        ]}
+        buttons={[
+          {
+            label: "Enviar",
+            onClickCallback: createCard,
+            color: "white",
+            backGroundColor: "LimeGreen",
+          },
+        ]}
+      />
+    );
+  }
+
+  function openUpdateCardModal(cardId: string) {
+    const foundCard = cards.find(function (item) {
+      return item.id.toString() === cardId.toString();
+    });
+
+    if (foundCard) {
+      setUpdatedCard(foundCard);
+      setUpdatedCardId(cardId);
+    }
+
+    setOpenUpdateModal(true);
+  }
+
+  function updateCard() {
+    cardRouter.update(updatedCardId, updatedCard).then(function (response) {
+      if (response.error) {
+        alert(response.message);
+      } else {
+        setOpenUpdateModal(false);
+        getCardsFromApi();
+      }
+    });
+  }
+
+  function onNickameChangeUpdate(inputNickname: string) {
+    setUpdatedCard({ ...updatedCard, nickname: inputNickname });
+  }
+
+  function onNameChangeUpdate(inputName: string) {
+    setUpdatedCard({ ...updatedCard, name: inputName });
+  }
+
+  function onNumberChangeUpdate(inputNumber: number) {
+    setUpdatedCard({ ...updatedCard, number: Number(inputNumber) });
+  }
+
+  function onSecurityCodeChangeUpdate(inputSecurityCode: number) {
+    setUpdatedCard({ ...updatedCard, securityCode: Number(inputSecurityCode) });
+  }
+
+  function updateCardForm() {
+    return (
+      <Form
+        title="Editar Cartão"
+        fields={[
+          {
+            label: "Nome",
+            inputType: "text",
+            onChangeCallback: onNickameChangeUpdate,
+            defaultValue: updatedCard.nickname,
+            placeholder: "Nome do Cartão",
+          },
+          {
+            label: "Titular",
+            inputType: "text",
+            onChangeCallback: onNameChangeUpdate,
+            defaultValue: updatedCard.name,
+            placeholder: "Nome impresso no cartão",
+          },
+          {
+            label: "Número",
+            inputType: "number",
+            onChangeCallback: onNumberChangeUpdate,
+            defaultValue: updatedCard.number?.toString(),
+            placeholder: "Número do cartão",
+          },
+          {
+            label: "Código de segurança",
+            inputType: "number",
+            onChangeCallback: onSecurityCodeChangeUpdate,
+            defaultValue: updatedCard.securityCode?.toString(),
+            placeholder: "Código de segurança do cartão",
+          },
+        ]}
+        buttons={[
+          {
+            label: "Enviar",
+            onClickCallback: updateCard,
+            color: "white",
+            backGroundColor: "LimeGreen",
+          },
+        ]}
+      />
+    );
   }
 
   useEffect(function () {
@@ -68,8 +247,18 @@ export function Cards() {
   return (
     <>
       <Title title="Cartões:" />
-      <ActionsTitle createEntityCallback={createCard} />
+      <ActionsTitle createEntityCallback={openCreateCardModal} />
       <FlexBody components={renderCards()} />
+      <Modal
+        show={openCreationModal}
+        setShowCallback={setOpenCreationModal}
+        content={createCardForm()}
+      />
+      <Modal
+        show={openUpdateModal}
+        setShowCallback={setOpenUpdateModal}
+        content={updateCardForm()}
+      />
     </>
   );
 }
