@@ -1,4 +1,3 @@
-import { FlexBody } from "../flexBody";
 import {
   StyledModal,
   StyledModalBody,
