@@ -7,6 +7,7 @@ type Props = {
     label: string;
     inputType: string;
     placeholder: string;
+    defaultValue?: string;
     onChangeCallback: (value: any) => void;
   }[];
   buttons: {
@@ -31,7 +32,17 @@ export function Form({ title, fields, buttons, finalContent }: Props) {
           );
 
         default:
-          return (
+          return field.defaultValue ? (
+            <div key={index}>
+              <h3>{field.label}</h3>
+              <StyledInput
+                value={field.defaultValue ?? ""}
+                onChange={(event) => field.onChangeCallback(event.target.value)}
+                type={field.inputType}
+                placeholder={field.placeholder}
+              />
+            </div>
+          ) : (
             <div key={index}>
               <h3>{field.label}</h3>
               <StyledInput
