@@ -10,6 +10,7 @@ import { CreateDocumentDto } from "../../domain/dtos/document/createDocument-dto
 import { UpdateDocumentDto } from "../../domain/dtos/document/updateDocument-dto";
 import { Form } from "../../components/Form";
 import { Modal } from "../../components/modal";
+import { getFileType } from "../../utils/fileType/getFileType";
 
 export function Documents() {
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -69,6 +70,12 @@ export function Documents() {
   }
 
   function createDocument() {
+    if (!getFileType(createdDocument.document || "")) {
+      alert("Tipo de arquivo inválido");
+
+      return;
+    }
+
     documentRouter.create(createdDocument).then(function (response) {
       if (response.error) {
         alert(response.message);
@@ -131,6 +138,12 @@ export function Documents() {
   }
 
   function updateDocument() {
+    if (!getFileType(updatedDocument.document || "")) {
+      alert("Tipo de arquivo inválido");
+
+      return;
+    }
+
     documentRouter
       .update(documentId, updatedDocument)
       .then(function (response) {
@@ -182,13 +195,28 @@ export function Documents() {
     );
   }
 
-  function downloadDocument(documentId: string) {
-    alert("Implementar download de documentos.");
-  }
-
   useEffect(function () {
     getDocumentsFromApi();
   }, []);
+
+  function downloadDocument(documentId: string) {
+    const foundDocument = documents.find(function (item) {
+      return item.id.toString() === documentId;
+    });
+
+    if (foundDocument) {
+      const encodedDocument = foundDocument.document;
+
+      const fileType = getFileType(encodedDocument);
+
+      if (fileType) {
+        const link = document.createElement("a");
+        link.href = encodedDocument;
+        link.download = `${foundDocument.name}.${fileType}`;
+        link.click();
+      }
+    }
+  }
 
   return (
     <>
