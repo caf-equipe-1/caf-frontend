@@ -138,30 +138,38 @@ export function Documents() {
   }
 
   function updateDocument() {
-    if (!getFileType(updatedDocument.document || "")) {
+    const updateData = updatedDocument;
+
+    if (updatedDocument.document?.toString().trim() === "") {
+      delete updateData.document;
+    }
+
+    if (updatedDocument.name?.toString().trim() === "") {
+      delete updateData.name;
+    }
+
+    if (updateData.document && !getFileType(updateData.document)) {
       alert("Tipo de arquivo inválido");
 
       return;
     }
 
-    documentRouter
-      .update(documentId, updatedDocument)
-      .then(function (response) {
-        if (response.error) {
-          alert(response.message);
-        } else {
-          setOpenUpdateModal(false);
-          getDocumentsFromApi();
-        }
-      });
+    documentRouter.update(documentId, updateData).then(function (response) {
+      if (response.error) {
+        alert(response.message);
+      } else {
+        setOpenUpdateModal(false);
+        getDocumentsFromApi();
+      }
+    });
   }
 
   function onNameChangeUpdate(inputName: string) {
-    setUpdatedDocument({ ...createdDocument, name: inputName });
+    setUpdatedDocument({ ...updatedDocument, name: inputName });
   }
 
   function onDocumentChangeUpdate(inputDocument: string) {
-    setUpdatedDocument({ ...createdDocument, document: inputDocument });
+    setUpdatedDocument({ ...updatedDocument, document: inputDocument });
   }
 
   function updateDocumentForm() {
