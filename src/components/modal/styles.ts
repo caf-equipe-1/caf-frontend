@@ -1,7 +1,19 @@
 import styled from "styled-components";
 
+export const StyledModalFather = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background-color: black;
+  opacity: 0.6;
+`;
+
 export const StyledModal = styled.div`
-  position: absolute;
+  opacity: 100;
+  position: fixed;
   background-color: white;
   border: solid 2px #35d592;
   top: 50%;

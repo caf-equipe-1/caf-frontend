@@ -4,6 +4,7 @@ import {
   StyledCloseButton,
   StyledCloseButtonIcon,
   StyledCloseButtonDiv,
+  StyledModalFather,
 } from "./styles";
 import closeButtonIcon from "../../Img/components/close-button.png";
 
@@ -19,14 +20,17 @@ export function Modal({ show, setShowCallback, content }: Props) {
   }
 
   return show ? (
-    <StyledModal>
-      <StyledCloseButtonDiv>
-        <StyledCloseButton onClick={() => toggleModal()}>
-          <StyledCloseButtonIcon src={closeButtonIcon} />
-        </StyledCloseButton>
-      </StyledCloseButtonDiv>
-      <StyledModalBody>{content}</StyledModalBody>
-    </StyledModal>
+    <>
+      <StyledModalFather />
+      <StyledModal>
+        <StyledCloseButtonDiv>
+          <StyledCloseButton onClick={() => toggleModal()}>
+            <StyledCloseButtonIcon src={closeButtonIcon} />
+          </StyledCloseButton>
+        </StyledCloseButtonDiv>
+        <StyledModalBody>{content}</StyledModalBody>
+      </StyledModal>
+    </>
   ) : (
     <></>
   );
