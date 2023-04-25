@@ -17,8 +17,8 @@ export const HeaderTitle = styled.div`
 `;
 
 export const HeaderLogo = styled.img`
-  height: 50px;
-  border-radius: 100%;
+  height: 80px;
+  padding: 5px;
 `;
 
 export const HeaderMargin = styled.img`

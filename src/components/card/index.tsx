@@ -10,12 +10,16 @@ import {
   StyledEditButton,
   StyledDeleteButton,
   StyledDownloadButton,
+  StyledHideButton,
 } from "./styles";
 import { FlexBody } from "../flexBody";
 import copyButtonIcon from "../../Img/components/copy-button.png";
 import deleteButtonIcon from "../../Img/components/delete-button.png";
 import editButtonIcon from "../../Img/components/edit-button.png";
 import downloadButtonIcon from "../../Img/components/download-button.png";
+import closedEye from "../../Img/components/closedEye-button.png";
+import openedEye from "../../Img/components/openedEye-button.png";
+import { useEffect, useState } from "react";
 
 type Props = {
   title: string;
@@ -23,6 +27,7 @@ type Props = {
   content: {
     label: string;
     text: string;
+    hide?: boolean;
   }[];
   downloadButton?: boolean;
   editCallback: (entityId: string) => void;
@@ -39,21 +44,82 @@ export function Card({
   editCallback,
   downloadCallback,
 }: Props) {
+  const [cardContent, setCardContent] = useState(
+    content.map(function (item) {
+      return {
+        ...item,
+        hide: item.hide ? item.hide : false,
+        hidden: item.hide ? item.hide : false,
+      };
+    })
+  );
+
+  useEffect(
+    function () {
+      setCardContent(
+        content.map(function (item) {
+          return {
+            ...item,
+            hide: item.hide ? item.hide : false,
+            hidden: item.hide ? item.hide : false,
+          };
+        })
+      );
+    },
+    [content]
+  );
+
+  function toggleHideContent(contentIndex: number) {
+    setCardContent([
+      ...cardContent.map(function (item, index) {
+        const newItem = item;
+        console.log(item);
+        if (Number(contentIndex) === Number(index)) {
+          if (newItem.hide) {
+            newItem.hidden = !item.hidden;
+          }
+        }
+        return newItem;
+      }),
+    ]);
+  }
+
+  function hiddenContentMask(text: string, hidden: boolean) {
+    return hidden ? text.replace(/./g, "*") : text;
+  }
+
   function renderContent() {
-    return content.map(function (item, index) {
+    return cardContent.map(function (item, index) {
       return (
         <StyledContentBody key={index}>
           <StyledContentLabel>{item.label}:</StyledContentLabel>
-          <StyledContentText>{item.text}</StyledContentText>
-          <StyledCopyButton
-            onClick={() => {
-              navigator.clipboard.writeText(item.text).then(() => {
-                alert("Copiado para a área de transferência!");
-              });
-            }}
-          >
-            <StyledButtonIcon src={copyButtonIcon} />
-          </StyledCopyButton>
+          <StyledContentText>
+            {hiddenContentMask(item.text, item.hidden)}
+          </StyledContentText>
+          <FlexBody
+            components={[
+              <StyledCopyButton
+                onClick={() => {
+                  navigator.clipboard.writeText(item.text).then(() => {
+                    alert("Copiado para a área de transferência!");
+                  });
+                }}
+              >
+                <StyledButtonIcon src={copyButtonIcon} />
+              </StyledCopyButton>,
+              <>
+                {item.hide ? (
+                  <StyledHideButton onClick={() => toggleHideContent(index)}>
+                    <StyledButtonIcon
+                      src={item.hidden ? closedEye : openedEye}
+                    />
+                  </StyledHideButton>
+                ) : (
+                  <></>
+                )}
+              </>,
+            ]}
+          />
         </StyledContentBody>
       );
     });
