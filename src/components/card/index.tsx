@@ -73,7 +73,7 @@ export function Card({
     setCardContent([
       ...cardContent.map(function (item, index) {
         const newItem = item;
-        console.log(item);
+
         if (Number(contentIndex) === Number(index)) {
           if (newItem.hide) {
             newItem.hidden = !item.hidden;
