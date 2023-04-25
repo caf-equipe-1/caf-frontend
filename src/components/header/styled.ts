@@ -22,5 +22,5 @@ export const HeaderLogo = styled.img`
 `;
 
 export const HeaderMargin = styled.img`
-  height: 70px;
+  height: 85px;
 `;
