@@ -64,7 +64,7 @@ export function Passwords() {
             alert(response.message);
           }
         })
-        .finally(() => {
+        .finally(function () {
           getPasswordsFromApi();
         });
     }
@@ -79,14 +79,18 @@ export function Passwords() {
   }
 
   function createPassword() {
-    passwordRouter.create(createdPassword).then(function (response) {
-      if (response.error) {
-        alert(response.message);
-      } else {
-        setOpenCreationModal(false);
+    passwordRouter
+      .create(createdPassword)
+      .then(function (response) {
+        if (response.error) {
+          alert(response.message);
+        } else {
+          setOpenCreationModal(false);
+        }
+      })
+      .finally(function () {
         getPasswordsFromApi();
-      }
-    });
+      });
   }
 
   function onNameChangeCreation(inputName: string) {
@@ -148,8 +152,10 @@ export function Passwords() {
           alert(response.message);
         } else {
           setOpenUpdateModal(false);
-          getPasswordsFromApi();
         }
+      })
+      .finally(function () {
+        getPasswordsFromApi();
       });
   }
 

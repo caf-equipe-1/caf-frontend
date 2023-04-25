@@ -19,7 +19,7 @@ import editButtonIcon from "../../Img/components/edit-button.png";
 import downloadButtonIcon from "../../Img/components/download-button.png";
 import closedEye from "../../Img/components/closedEye-button.png";
 import openedEye from "../../Img/components/openedEye-button.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   title: string;
@@ -52,6 +52,21 @@ export function Card({
         hidden: item.hide ? item.hide : false,
       };
     })
+  );
+
+  useEffect(
+    function () {
+      setCardContent(
+        content.map(function (item) {
+          return {
+            ...item,
+            hide: item.hide ? item.hide : false,
+            hidden: item.hide ? item.hide : false,
+          };
+        })
+      );
+    },
+    [content]
   );
 
   function toggleHideContent(contentIndex: number) {

@@ -18,12 +18,14 @@ export function Cards() {
   const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
   const [createdCard, setCreatedCard] = useState<CreateCardDto>({
     nickname: "",
+    password: 0,
     name: "",
     number: 0,
     securityCode: 0,
   });
   const [updatedCard, setUpdatedCard] = useState<UpdateCardDto>({
     nickname: "",
+    password: 0,
     name: "",
     number: 0,
     securityCode: 0,
@@ -67,6 +69,11 @@ export function Cards() {
               text: card.securityCode.toString(),
               hide: true,
             },
+            {
+              label: "Senha",
+              text: card.password.toString(),
+              hide: true,
+            },
           ]}
           key={index}
           deleteCallback={deleteCard}
@@ -82,6 +89,7 @@ export function Cards() {
       name: "",
       number: 0,
       securityCode: 0,
+      password: 0,
     });
 
     setOpenCreationModal(true);
@@ -114,6 +122,10 @@ export function Cards() {
     setCreatedCard({ ...createdCard, securityCode: Number(inputSecurityCode) });
   }
 
+  function onPasswordChangeCreate(inputPassword: number) {
+    setCreatedCard({ ...createdCard, password: Number(inputPassword) });
+  }
+
   function createCardForm() {
     return (
       <Form
@@ -142,6 +154,12 @@ export function Cards() {
             inputType: "number",
             onChangeCallback: onSecurityCodeChangeCreate,
             placeholder: "Código de segurança do cartão",
+          },
+          {
+            label: "Senha",
+            inputType: "number",
+            onChangeCallback: onPasswordChangeCreate,
+            placeholder: "Senha do cartão",
           },
         ]}
         buttons={[
@@ -196,6 +214,10 @@ export function Cards() {
     setUpdatedCard({ ...updatedCard, securityCode: Number(inputSecurityCode) });
   }
 
+  function onPasswordChangeUpdate(inputPassword: number) {
+    setUpdatedCard({ ...updatedCard, password: Number(inputPassword) });
+  }
+
   function updateCardForm() {
     return (
       <Form
@@ -228,6 +250,13 @@ export function Cards() {
             onChangeCallback: onSecurityCodeChangeUpdate,
             defaultValue: updatedCard.securityCode?.toString(),
             placeholder: "Código de segurança do cartão",
+          },
+          {
+            label: "Senha",
+            inputType: "number",
+            onChangeCallback: onPasswordChangeUpdate,
+            defaultValue: updatedCard.password?.toString(),
+            placeholder: "Senha do cartão",
           },
         ]}
         buttons={[
