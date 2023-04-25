@@ -60,10 +60,12 @@ export function Cards() {
             {
               label: "Número",
               text: card.number.toString(),
+              hide: true,
             },
             {
               label: "Código de Segurança",
               text: card.securityCode.toString(),
+              hide: true,
             },
           ]}
           key={index}

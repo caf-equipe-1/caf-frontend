@@ -54,6 +54,21 @@ export const StyledCopyButton = styled.button`
   box-shadow: 2px 2px 4px gray;
 `;
 
+export const StyledHideButton = styled.button`
+  height: 40px;
+  width: 40px;
+  background-color: AntiqueWhite;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  margin: auto;
+  :hover {
+    scale: 1.03;
+    background-color: lightblue;
+  }
+  box-shadow: 2px 2px 4px gray;
+`;
+
 export const StyledEditButton = styled.button`
   height: 40px;
   width: 40px;

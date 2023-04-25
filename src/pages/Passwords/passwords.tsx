@@ -44,6 +44,7 @@ export function Passwords() {
             {
               label: "Senha",
               text: password.password,
+              hide: true,
             },
           ]}
           key={index}
