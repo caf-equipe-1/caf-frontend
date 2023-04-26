@@ -11,9 +11,20 @@ import { UpdateDocumentDto } from "../../domain/dtos/document/updateDocument-dto
 import { Form } from "../../components/Form";
 import { Modal } from "../../components/modal";
 import { getFileType } from "../../utils/fileType/getFileType";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import {
+  addDocumentStore,
+  addManyDocumentsStore,
+  deleteDocumentStore,
+  updateDocumentStore,
+} from "../../store/slices/document-slice";
 
 export function Documents() {
-  const [documents, setDocuments] = useState<Document[]>([]);
+  const dispatch = useDispatch();
+  const storedDocuments = useSelector(
+    (state: RootState) => state.documents.value
+  );
   const documentRouter = makeDocumentRouterFactory();
   const [openCreationModal, setOpenCreationModal] = useState<boolean>(false);
   const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
@@ -30,13 +41,13 @@ export function Documents() {
   function getDocumentsFromApi() {
     documentRouter.getAll().then(function (response: HttpResponse<Document[]>) {
       if (response.body) {
-        setDocuments(response.body);
+        dispatch(addManyDocumentsStore(response.body));
       }
     });
   }
 
   function renderCards() {
-    return documents.map(function (document, index) {
+    return storedDocuments.map(function (document, index) {
       return (
         <Card
           title={""}
@@ -54,8 +65,12 @@ export function Documents() {
 
   function deleteDocument(documentId: string) {
     if (window.confirm("Deseja apagar esse documento?")) {
-      documentRouter.delete(documentId).then(() => {
-        getDocumentsFromApi();
+      dispatch(deleteDocumentStore(documentId));
+      documentRouter.delete(documentId).then((response) => {
+        if (response.error) {
+          alert(response.message);
+          getDocumentsFromApi();
+        }
       });
     }
   }
@@ -76,14 +91,19 @@ export function Documents() {
       return;
     }
 
-    documentRouter.create(createdDocument).then(function (response) {
-      if (response.error) {
-        alert(response.message);
-      } else {
-        setOpenCreationModal(false);
+    dispatch(addDocumentStore(createdDocument));
+    documentRouter
+      .create(createdDocument)
+      .then(function (response) {
+        if (response.error) {
+          alert(response.message);
+        } else {
+          setOpenCreationModal(false);
+        }
+      })
+      .finally(function () {
         getDocumentsFromApi();
-      }
-    });
+      });
   }
 
   function onNameChangeCreate(inputName: string) {
@@ -125,7 +145,7 @@ export function Documents() {
   }
 
   function openUpdateDocumentModal(documentId: string) {
-    const foundDocument = documents.find(function (item) {
+    const foundDocument = storedDocuments.find(function (item) {
       return item.id.toString() === documentId;
     });
 
@@ -154,14 +174,19 @@ export function Documents() {
       return;
     }
 
-    documentRouter.update(documentId, updateData).then(function (response) {
-      if (response.error) {
-        alert(response.message);
-      } else {
-        setOpenUpdateModal(false);
+    dispatch(updateDocumentStore({ id: documentId, body: updateData }));
+    documentRouter
+      .update(documentId, updateData)
+      .then(function (response) {
+        if (response.error) {
+          alert(response.message);
+        } else {
+          setOpenUpdateModal(false);
+        }
+      })
+      .finally(function () {
         getDocumentsFromApi();
-      }
-    });
+      });
   }
 
   function onNameChangeUpdate(inputName: string) {
@@ -203,12 +228,8 @@ export function Documents() {
     );
   }
 
-  useEffect(function () {
-    getDocumentsFromApi();
-  }, []);
-
   function downloadDocument(documentId: string) {
-    const foundDocument = documents.find(function (item) {
+    const foundDocument = storedDocuments.find(function (item) {
       return item.id.toString() === documentId;
     });
 

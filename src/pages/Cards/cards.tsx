@@ -10,9 +10,18 @@ import { CreateCardDto } from "../../domain/dtos/card/createCard-dto";
 import { UpdateCardDto } from "../../domain/dtos/card/updateCard-dto";
 import { Form } from "../../components/Form";
 import { Modal } from "../../components/modal";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import {
+  addCardStore,
+  addManyCardsStore,
+  deleteCardStore,
+  updateCardStore,
+} from "../../store/slices/card-slice";
 
 export function Cards() {
-  const [cards, setCards] = useState<CardEntity[]>([]);
+  const dispatch = useDispatch();
+  const storedCards = useSelector((state: RootState) => state.cards.value);
   const cardRouter = makeCardRouterFactory();
   const [openCreationModal, setOpenCreationModal] = useState<boolean>(false);
   const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
@@ -35,21 +44,25 @@ export function Cards() {
   function getCardsFromApi() {
     cardRouter.getAll().then(function (response: HttpResponse<CardEntity[]>) {
       if (response.body) {
-        setCards(response.body);
+        dispatch(addManyCardsStore(response.body));
       }
     });
   }
 
   function deleteCard(cardId: string) {
     if (window.confirm("Deseja apagar esse cartão?")) {
-      cardRouter.delete(cardId).then(() => {
-        getCardsFromApi();
+      dispatch(deleteCardStore(cardId));
+      cardRouter.delete(cardId).then(function (response) {
+        if (response.error) {
+          alert(response.message);
+          getCardsFromApi();
+        }
       });
     }
   }
 
   function renderCards() {
-    return cards.map(function (card, index) {
+    return storedCards.map(function (card, index) {
       return (
         <Card
           title={card.nickname}
@@ -96,14 +109,19 @@ export function Cards() {
   }
 
   function createCard() {
-    cardRouter.create(createdCard).then(function (response) {
-      if (response.error) {
-        alert(response.message);
-      } else {
-        setOpenCreationModal(false);
+    dispatch(addCardStore(createdCard));
+    cardRouter
+      .create(createdCard)
+      .then(function (response) {
+        if (response.error) {
+          alert(response.message);
+        } else {
+          setOpenCreationModal(false);
+        }
+      })
+      .finally(function () {
         getCardsFromApi();
-      }
-    });
+      });
   }
 
   function onNickameChangeCreate(inputNickname: string) {
@@ -175,7 +193,7 @@ export function Cards() {
   }
 
   function openUpdateCardModal(cardId: string) {
-    const foundCard = cards.find(function (item) {
+    const foundCard = storedCards.find(function (item) {
       return item.id.toString() === cardId.toString();
     });
 
@@ -188,14 +206,19 @@ export function Cards() {
   }
 
   function updateCard() {
-    cardRouter.update(updatedCardId, updatedCard).then(function (response) {
-      if (response.error) {
-        alert(response.message);
-      } else {
-        setOpenUpdateModal(false);
+    dispatch(updateCardStore({ id: updatedCardId, body: updatedCard }));
+    cardRouter
+      .update(updatedCardId, updatedCard)
+      .then(function (response) {
+        if (response.error) {
+          alert(response.message);
+        } else {
+          setOpenUpdateModal(false);
+        }
+      })
+      .finally(function () {
         getCardsFromApi();
-      }
-    });
+      });
   }
 
   function onNickameChangeUpdate(inputNickname: string) {
@@ -270,10 +293,6 @@ export function Cards() {
       />
     );
   }
-
-  useEffect(function () {
-    getCardsFromApi();
-  }, []);
 
   return (
     <>

@@ -4,9 +4,15 @@ import { useState } from "react";
 import { EmailLoginDto } from "../../domain/dtos/login/emailLogin-dto";
 import { makeEmailLoginRouterFactory } from "../../infra/api/factories/login/emailLogin-router-factory";
 import { Form } from "../../components/Form";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../store/slices/user-slice";
+import { addManyPasswordsStore } from "../../store/slices/password-slice";
+import { addManyCardsStore } from "../../store/slices/card-slice";
+import { addManyDocumentsStore } from "../../store/slices/document-slice";
 
 export function Login() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [loginData, setLoginData] = useState<EmailLoginDto>({
     email: "",
     password: "",
@@ -19,6 +25,12 @@ export function Login() {
       if (data.error) {
         alert(data.message);
       } else {
+        if (data.body) {
+          dispatch(addUser(data.body.user));
+          dispatch(addManyPasswordsStore(data.body.user.passwords));
+          dispatch(addManyCardsStore(data.body.user.cards));
+          dispatch(addManyDocumentsStore(data.body.user.documents));
+        }
         alert("Login realizado com sucesso!");
         navigate("/services");
       }

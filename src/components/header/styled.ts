@@ -1,12 +1,19 @@
 import styled from "styled-components";
 
 export const HeaderBody = styled.div`
- display: flex; 
+  display: flex; 
+  flex-wrap:wrap;
+  justify-content: space-between;
   background-color: #35d592;
   width: 100%;
   padding 5px;
   position: fixed;
   top: 0;
+`;
+
+export const HeaderMain = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 export const HeaderTitle = styled.div`
@@ -22,5 +29,5 @@ export const HeaderLogo = styled.img`
 `;
 
 export const HeaderMargin = styled.img`
-  height: 70px;
+  height: 85px;
 `;

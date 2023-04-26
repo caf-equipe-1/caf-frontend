@@ -9,6 +9,7 @@ import { Cards } from "./pages/Cards/cards";
 import { Passwords } from "./pages/Passwords/passwords";
 import { Instructions } from "./pages/Instructions/instructions";
 import { Photos } from "./pages/photos/Photos";
+import { Profile } from "./pages/Profile/profile";
 
 export function App() {
   return (
@@ -24,6 +25,7 @@ export function App() {
           <Route path={"/passwords"} element={<Passwords />}></Route>
           <Route path={"/instructions"} element={<Instructions />}></Route>
           <Route path={"/photos"} element={<Photos />}></Route>
+          <Route path={"/profile"} element={<Profile />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -1,4 +1,5 @@
 import { Card } from "../card/card-entity";
+import { Document } from "../document/document-entity";
 import { Password } from "../password/password-entity";
 
 export type User = {
@@ -9,7 +10,7 @@ export type User = {
   photo: string;
   cpf: string;
   passwords: Password[];
-  documents: { id: string; name: string }[];
+  documents: Document[];
   cards: Card[];
   createdAt: string;
   updatedAt: string;
