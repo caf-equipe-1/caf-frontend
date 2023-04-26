@@ -10,10 +10,22 @@ import { CreatePasswordDto } from "../../domain/dtos/password/createPassword-dto
 import { UpdatePasswordDto } from "../../domain/dtos/password/updatePassword-dto";
 import { Modal } from "../../components/modal";
 import { Form } from "../../components/Form";
+import { RootState } from "../../store/store";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addManyPasswordsStore,
+  addPasswordStore,
+  deletePasswordStore,
+  updatePasswordStore,
+} from "../../store/slices/password-slice";
 
 export function Passwords() {
+  const dispatch = useDispatch();
+  const storedPasswords = useSelector(
+    (state: RootState) => state.passwords.value
+  );
+
   const passwordRouter = makePasswordRouterFactory();
-  const [passwords, setPasswords] = useState<Password[]>([]);
   const [openCreationModal, setOpenCreationModal] = useState<boolean>(false);
   const [openUpdateModal, setOpenUpdateModal] = useState<boolean>(false);
   const [createdPassword, setCreatedPassword] = useState<CreatePasswordDto>({
@@ -29,13 +41,13 @@ export function Passwords() {
   function getPasswordsFromApi() {
     passwordRouter.getAll().then(function (response: HttpResponse<Password[]>) {
       if (response.body) {
-        setPasswords(response.body);
+        dispatch(addManyPasswordsStore(response.body));
       }
     });
   }
 
   function renderCards() {
-    return passwords.map(function (password, index) {
+    return storedPasswords.map(function (password, index) {
       return (
         <Card
           title={password.name}
@@ -57,16 +69,13 @@ export function Passwords() {
 
   function deletePassword(passwordId: string) {
     if (window.confirm("Deseja apagar essa senha?")) {
-      passwordRouter
-        .delete(passwordId)
-        .then(function (response) {
-          if (response.error) {
-            alert(response.message);
-          }
-        })
-        .finally(function () {
+      dispatch(deletePasswordStore(passwordId));
+      passwordRouter.delete(passwordId).then(function (response) {
+        if (response.error) {
+          alert(response.message);
           getPasswordsFromApi();
-        });
+        }
+      });
     }
   }
 
@@ -79,6 +88,7 @@ export function Passwords() {
   }
 
   function createPassword() {
+    dispatch(addPasswordStore(createdPassword));
     passwordRouter
       .create(createdPassword)
       .then(function (response) {
@@ -132,7 +142,7 @@ export function Passwords() {
   }
 
   function openUpdatePasswordModal(passwordId: string) {
-    const foundPassword = passwords.find(function (item) {
+    const foundPassword = storedPasswords.find(function (item) {
       return item.id.toString() === passwordId.toString();
     });
 
@@ -145,6 +155,9 @@ export function Passwords() {
   }
 
   function updatePassword() {
+    dispatch(
+      updatePasswordStore({ id: updatedPasswordId, body: updatedPassword })
+    );
     passwordRouter
       .update(updatedPasswordId, updatedPassword)
       .then(function (response) {
@@ -198,10 +211,6 @@ export function Passwords() {
       />
     );
   }
-
-  useEffect(function () {
-    getPasswordsFromApi();
-  }, []);
 
   return (
     <>

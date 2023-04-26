@@ -60,7 +60,7 @@ export function Register() {
         },
         {
           label: "Email",
-          inputType: "text",
+          inputType: "email",
           placeholder: "Digite o seu email",
           onChangeCallback: onEmailChange,
         },
