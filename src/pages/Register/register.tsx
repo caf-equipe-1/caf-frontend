@@ -68,6 +68,7 @@ export function Register() {
           setMediaStream(stream);
         }
       } catch (err) {
+        alert("Verifique se sua câmera está devidamente conectada")
         console.error("Error accessing camera:", err);
       }
     };
