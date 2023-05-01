@@ -110,13 +110,13 @@ export function Cards() {
 
   function createCard() {
     dispatch(addCardStore(createdCard));
+    setOpenCreationModal(false);
+
     cardRouter
       .create(createdCard)
       .then(function (response) {
         if (response.error) {
           alert(response.message);
-        } else {
-          setOpenCreationModal(false);
         }
       })
       .finally(function () {
@@ -207,13 +207,13 @@ export function Cards() {
 
   function updateCard() {
     dispatch(updateCardStore({ id: updatedCardId, body: updatedCard }));
+    setOpenUpdateModal(false);
+
     cardRouter
       .update(updatedCardId, updatedCard)
       .then(function (response) {
         if (response.error) {
           alert(response.message);
-        } else {
-          setOpenUpdateModal(false);
         }
       })
       .finally(function () {

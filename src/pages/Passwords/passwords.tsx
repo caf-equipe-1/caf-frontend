@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FlexBody } from "../../components/flexBody";
 import { Title } from "../../components/title";
 import { HttpResponse } from "../../domain/types/http/httpResponse-dto";
@@ -89,13 +89,12 @@ export function Passwords() {
 
   function createPassword() {
     dispatch(addPasswordStore(createdPassword));
+    setOpenCreationModal(false);
     passwordRouter
       .create(createdPassword)
       .then(function (response) {
         if (response.error) {
           alert(response.message);
-        } else {
-          setOpenCreationModal(false);
         }
       })
       .finally(function () {
@@ -158,13 +157,12 @@ export function Passwords() {
     dispatch(
       updatePasswordStore({ id: updatedPasswordId, body: updatedPassword })
     );
+    setOpenUpdateModal(false);
     passwordRouter
       .update(updatedPasswordId, updatedPassword)
       .then(function (response) {
         if (response.error) {
           alert(response.message);
-        } else {
-          setOpenUpdateModal(false);
         }
       })
       .finally(function () {

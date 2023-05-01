@@ -21,7 +21,7 @@ export class SelfieLoginRouter implements SelfieLoginRouterInterface {
     this.httpRequest = httpRequest;
     this.apiConnection = apiConnection;
     this.tokenStorage = tokenStorage;
-    this.route = "login/email";
+    this.route = "login/selfie";
   }
 
   public async login(

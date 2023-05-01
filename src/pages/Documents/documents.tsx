@@ -92,13 +92,13 @@ export function Documents() {
     }
 
     dispatch(addDocumentStore(createdDocument));
+    setOpenCreationModal(false);
+
     documentRouter
       .create(createdDocument)
       .then(function (response) {
         if (response.error) {
           alert(response.message);
-        } else {
-          setOpenCreationModal(false);
         }
       })
       .finally(function () {
@@ -175,13 +175,13 @@ export function Documents() {
     }
 
     dispatch(updateDocumentStore({ id: documentId, body: updateData }));
+    setOpenUpdateModal(false);
+
     documentRouter
       .update(documentId, updateData)
       .then(function (response) {
         if (response.error) {
           alert(response.message);
-        } else {
-          setOpenUpdateModal(false);
         }
       })
       .finally(function () {
