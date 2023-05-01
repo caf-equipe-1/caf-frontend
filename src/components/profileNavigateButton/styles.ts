@@ -1,5 +1,30 @@
 import styled from "styled-components";
 
+export const StyledDiv = styled.div`
+  display: flex;
+  width: fit-content;
+`;
+
+export const StyledLogoutButton = styled.button`
+  height: 50px;
+  width: 50px;
+  margin: auto 0 auto 0;
+  background-color: red;
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 5px;
+  :hover {
+    scale: 1.1;
+    background-color: yellow;
+  }
+  box-shadow: 2px 2px 4px gray;
+`;
+
+export const StyledLogoutButtonIcon = styled.img`
+  height: 30px;
+  width: 30px;
+`;
+
 export const StyledButton = styled.button`
   display: flex;
   justify-content: center;
