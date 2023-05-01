@@ -17,11 +17,13 @@ import { addManyDocumentsStore } from "../../store/slices/document-slice";
 import { SelfieLoginDto } from "../../domain/dtos/login/selfieLogin-dto";
 import { Modal } from "../../components/modal";
 import { makeSelfieLoginRouterFactory } from "../../infra/api/factories/login/selfieLogin-router-factory";
+import { LoadingSpinner } from "../../components/loadingSpinner";
 
 export function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const videoRef: any = useRef(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const [loginBySelfie, setLoginBySelfie] = useState<boolean>(true);
   const [showCameraModal, setShowCameraModal] = useState<boolean>(false);
   const [cameraStream, setCameraStream] = useState<any>();
@@ -36,6 +38,7 @@ export function Login() {
   });
 
   function handleEmailLogin() {
+    setLoading(true);
     const loginRouter = makeEmailLoginRouterFactory();
 
     loginRouter.login(emailLoginData).then(function (data) {
@@ -51,10 +54,12 @@ export function Login() {
         alert("Login realizado com sucesso!");
         navigate("/services");
       }
+      setLoading(false);
     });
   }
 
   function handleSelfieLogin() {
+    setLoading(true);
     const loginRouter = makeSelfieLoginRouterFactory();
 
     loginRouter.login(selfieLoginData).then(function (data) {
@@ -70,6 +75,7 @@ export function Login() {
         alert("Login realizado com sucesso!");
         navigate("/services");
       }
+      setLoading(false);
     });
   }
 
@@ -280,6 +286,7 @@ export function Login() {
         show={showCameraModal}
         setShowCallback={closeCameraModal}
       />
+      <LoadingSpinner loading={loading} />
     </>
   );
 }

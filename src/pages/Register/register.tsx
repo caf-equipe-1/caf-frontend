@@ -10,10 +10,12 @@ import { useRef, useState } from "react";
 import { CreateUserDto } from "../../domain/dtos/user/createUser-dto";
 import { Form } from "../../components/Form";
 import { Modal } from "../../components/modal";
+import { LoadingSpinner } from "../../components/loadingSpinner";
 
 export function Register() {
   const navigate = useNavigate();
   const videoRef: any = useRef(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const [showCameraModal, setShowCameraModal] = useState<boolean>(false);
   const [showImageInputModal, setShowImageInputModal] =
     useState<boolean>(false);
@@ -28,6 +30,7 @@ export function Register() {
   });
 
   function handleRegistration() {
+    setLoading(true);
     const userRegistrationRouter = makeUserRouterFactory();
 
     userRegistrationRouter.create(userInfo).then(function (data) {
@@ -37,6 +40,7 @@ export function Register() {
         alert("Registrado com sucesso!");
         navigate("/");
       }
+      setLoading(false);
     });
   }
 
@@ -245,6 +249,7 @@ export function Register() {
         show={showImageInputModal}
         setShowCallback={setShowImageInputModal}
       />
+      <LoadingSpinner loading={loading} />
     </>
   );
 }
