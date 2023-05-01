@@ -4,7 +4,7 @@ export class ApiConnection implements ApiConnectionInterface {
   private readonly link: string;
 
   public constructor() {
-    this.link = "https://caf-backend-production-6db6.up.railway.app";
+    this.link = "https://caf-backend-production-345a.up.railway.app";
   }
 
   public getLink(): string {
