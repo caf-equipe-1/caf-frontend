@@ -57,6 +57,8 @@ export const ButtonConfirm = styled.button`
 `;
 
 export const ButtonRegister = styled.button`
+  color: DodgerBlue;
+  text-decoration: underline;
   display: flex;
   margin: 10px auto;
   padding: 12px;
