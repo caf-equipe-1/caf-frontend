@@ -193,7 +193,7 @@ export function Register() {
           },
           {
             label: "CPF",
-            inputType: "number",
+            inputType: "text",
             placeholder: "Digite o seu CPF",
             onChangeCallback: onCpfChange,
           },

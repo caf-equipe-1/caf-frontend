@@ -103,7 +103,7 @@ export function Profile() {
           },
           {
             label: "CPF",
-            inputType: "number",
+            inputType: "text",
             placeholder: "Novo CPF",
             onChangeCallback: onCpfChange,
             defaultValue: userInfo.cpf,
