@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { ButtonRegister } from "./styles";
+import { ButtonRegister, StyledSendImageButton, StyledVideo } from "./styles";
 import { makeUserRouterFactory } from "../../infra/api/factories/user/user-router-factory";
 import { useEffect, useRef, useState } from "react";
 import { CreateUserDto } from "../../domain/dtos/user/createUser-dto";
@@ -152,19 +152,21 @@ export function Register() {
   };
 
   function handleRegistration() {
-    const userRegistrationRouter = makeUserRouterFactory();
+    console.log(userInfo);
+    // const userRegistrationRouter = makeUserRouterFactory();
 
-    userRegistrationRouter.create(userInfo).then(function (data) {
-      if (data.error) {
-        alert(data.message);
-      } else {
-        alert("Registrado com sucesso!");
-        navigate("/");
-      }
-    });
+    // userRegistrationRouter.create(userInfo).then(function (data) {
+    //   if (data.error) {
+    //     alert(data.message);
+    //   } else {
+    //     alert("Registrado com sucesso!");
+    //     navigate("/");
+    //   }
+    // });
   }
 
   function onNameChange(inputName: string) {
+    console.log("TESTE NAME CHANGE");
     setUserInfo({ ...userInfo, name: inputName });
   }
 
@@ -233,14 +235,34 @@ export function Register() {
     return (
       <>
         <Form
-          title="Imagem"
+          title="Captura de imagem"
           fields={[]}
           buttons={[]}
           finalContent={
             <div>
-              <video ref={videoRef} style={{ transform: "scaleX(-1)" }} />
-              <button onClick={captureImage}>Capture Image</button>
-              {image && <img src={image} alt="Captured Image" />}
+              {videoRef && (
+                <>
+                  <StyledVideo
+                    ref={videoRef}
+                    style={{ transform: "scaleX(-1)" }}
+                  />
+                  <StyledSendImageButton onClick={captureImage}>
+                    CAPTURAR IMAGEM
+                  </StyledSendImageButton>
+                  {image && (
+                    <>
+                      <img src={image} alt="Captured Image" />
+                      <StyledSendImageButton
+                        onClick={() => {
+                          closeCameraModal(false);
+                        }}
+                      >
+                        CONFIRMAR
+                      </StyledSendImageButton>
+                    </>
+                  )}
+                </>
+              )}
             </div>
           }
         />
