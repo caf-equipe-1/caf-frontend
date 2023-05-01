@@ -1,7 +1,12 @@
 import { useNavigate } from "react-router";
-import { ButtonRegister, StyledSendImageButton, StyledVideo } from "./styles";
+import {
+  ButtonRegister,
+  StyledImage,
+  StyledSendImageButton,
+  StyledVideo,
+} from "./styles";
 import { makeUserRouterFactory } from "../../infra/api/factories/user/user-router-factory";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { CreateUserDto } from "../../domain/dtos/user/createUser-dto";
 import { Form } from "../../components/Form";
 import { Modal } from "../../components/modal";
@@ -10,13 +15,10 @@ export function Register() {
   const navigate = useNavigate();
   const videoRef: any = useRef(null);
   const [showCameraModal, setShowCameraModal] = useState<boolean>(false);
+  const [showImageInputModal, setShowImageInputModal] =
+    useState<boolean>(false);
   const [cameraStream, setCameraStream] = useState<any>();
   const [image, setImage] = useState(null);
-  const [formData, setFormData] = useState<any>({
-    fields: [],
-    buttons: [],
-    finalContent: [],
-  });
   const [userInfo, setUserInfo] = useState<CreateUserDto>({
     name: "",
     email: "",
@@ -25,148 +27,20 @@ export function Register() {
     photo: "",
   });
 
-  const imageCaptureOptionFormFields = {
-    fields: [
-      {
-        label: "Nome",
-        inputType: "text",
-        placeholder: "Digite o seu nome",
-        onChangeCallback: onNameChange,
-      },
-      {
-        label: "Email",
-        inputType: "email",
-        placeholder: "Digite o seu email",
-        onChangeCallback: onEmailChange,
-      },
-      {
-        label: "CPF",
-        inputType: "number",
-        placeholder: "Digite o seu CPF",
-        onChangeCallback: onCpfChange,
-      },
-      {
-        label: "Senha",
-        inputType: "password",
-        placeholder: "Digite a sua senha",
-        onChangeCallback: onPasswordChange,
-      },
-    ],
-    buttons: [
-      {
-        label: "CADASTRAR FOTO",
-        onClickCallback: openCameraModal,
-        color: "white",
-        backGroundColor: "green",
-      },
-      {
-        label: "CONFIRMAR",
-        onClickCallback: handleRegistration,
-        color: "white",
-        backGroundColor: "MidnightBlue",
-      },
-    ],
-    finalContent: (
-      <>
-        <div>
-          <h4>Não consegue cadastrar sua foto?</h4>
-          <ButtonRegister
-            onClick={() => {
-              setFormData(imageFileInputOptionFormFields);
-            }}
-          >
-            Enviar arquivo de foto
-          </ButtonRegister>
-        </div>
-        <div>
-          <h4>Já possui login?</h4>
-          <ButtonRegister onClick={() => navigate("/")}>
-            Faça login
-          </ButtonRegister>
-        </div>
-      </>
-    ),
-  };
-
-  const imageFileInputOptionFormFields = {
-    fields: [
-      {
-        label: "Nome",
-        inputType: "text",
-        placeholder: "Digite o seu nome",
-        onChangeCallback: onNameChange,
-      },
-      {
-        label: "Email",
-        inputType: "email",
-        placeholder: "Digite o seu email",
-        onChangeCallback: onEmailChange,
-      },
-      {
-        label: "CPF",
-        inputType: "number",
-        placeholder: "Digite o seu CPF",
-        onChangeCallback: onCpfChange,
-      },
-      {
-        label: "Senha",
-        inputType: "password",
-        placeholder: "Digite a sua senha",
-        onChangeCallback: onPasswordChange,
-      },
-      {
-        label: "Foto",
-        inputType: "file",
-        placeholder: "",
-        onChangeCallback: onImageChange,
-      },
-    ],
-    buttons: [
-      {
-        label: "CONFIRMAR",
-        onClickCallback: handleRegistration,
-        color: "white",
-        backGroundColor: "MidnightBlue",
-      },
-    ],
-    finalContent: (
-      <>
-        <div>
-          <h4>Não consegue enviar o arquivo?</h4>
-          <ButtonRegister
-            onClick={() => {
-              setFormData(imageCaptureOptionFormFields);
-            }}
-          >
-            Capture sua foto
-          </ButtonRegister>
-        </div>
-        <div>
-          <h4>Já possui login?</h4>
-          <ButtonRegister onClick={() => navigate("/")}>
-            Faça login
-          </ButtonRegister>
-        </div>
-      </>
-    ),
-  };
-
   function handleRegistration() {
-    console.log(userInfo);
-    // const userRegistrationRouter = makeUserRouterFactory();
+    const userRegistrationRouter = makeUserRouterFactory();
 
-    // userRegistrationRouter.create(userInfo).then(function (data) {
-    //   if (data.error) {
-    //     alert(data.message);
-    //   } else {
-    //     alert("Registrado com sucesso!");
-    //     navigate("/");
-    //   }
-    // });
+    userRegistrationRouter.create(userInfo).then(function (data) {
+      if (data.error) {
+        alert(data.message);
+      } else {
+        alert("Registrado com sucesso!");
+        navigate("/");
+      }
+    });
   }
 
   function onNameChange(inputName: string) {
-    console.log("TESTE NAME CHANGE");
     setUserInfo({ ...userInfo, name: inputName });
   }
 
@@ -201,6 +75,10 @@ export function Register() {
     setShowCameraModal(true);
   }
 
+  function openImageInputModal() {
+    setShowImageInputModal(true);
+  }
+
   function closeCameraModal(value: boolean) {
     if (cameraStream) {
       cameraStream.getTracks().forEach(function (track: any) {
@@ -223,7 +101,7 @@ export function Register() {
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
     const dataUrl = canvas.toDataURL();
     setImage(dataUrl);
-    setUserInfo({ ...userInfo, photo: dataUrl });
+    onImageChange(dataUrl);
   }
 
   const constraints = {
@@ -251,7 +129,7 @@ export function Register() {
                   </StyledSendImageButton>
                   {image && (
                     <>
-                      <img src={image} alt="Captured Image" />
+                      <StyledImage src={image} alt="Captured Image" />
                       <StyledSendImageButton
                         onClick={() => {
                           closeCameraModal(false);
@@ -270,22 +148,102 @@ export function Register() {
     );
   }
 
-  useEffect(function () {
-    setFormData(imageCaptureOptionFormFields);
-  }, []);
+  function imageFileInputModalContent() {
+    return (
+      <>
+        <Form
+          title="Arquivo de imagem"
+          fields={[
+            {
+              label: "Foto",
+              inputType: "file",
+              placeholder: "",
+              onChangeCallback: onImageChange,
+            },
+          ]}
+          buttons={[
+            {
+              label: "CONFIRMAR",
+              onClickCallback: () => setShowImageInputModal(false),
+              color: "white",
+              backGroundColor: "MidnightBlue",
+            },
+          ]}
+        />
+      </>
+    );
+  }
 
   return (
     <>
       <Form
         title="REGISTRO"
-        fields={formData.fields}
-        buttons={formData.buttons}
-        finalContent={formData.finalContent}
+        fields={[
+          {
+            label: "Nome",
+            inputType: "text",
+            placeholder: "Digite o seu nome",
+            onChangeCallback: onNameChange,
+          },
+          {
+            label: "Email",
+            inputType: "email",
+            placeholder: "Digite o seu email",
+            onChangeCallback: onEmailChange,
+          },
+          {
+            label: "CPF",
+            inputType: "number",
+            placeholder: "Digite o seu CPF",
+            onChangeCallback: onCpfChange,
+          },
+          {
+            label: "Senha",
+            inputType: "password",
+            placeholder: "Digite a sua senha",
+            onChangeCallback: onPasswordChange,
+          },
+        ]}
+        buttons={[
+          {
+            label: "CADASTRAR FOTO",
+            onClickCallback: openCameraModal,
+            color: "white",
+            backGroundColor: "green",
+          },
+          {
+            label: "CONFIRMAR",
+            onClickCallback: handleRegistration,
+            color: "white",
+            backGroundColor: "MidnightBlue",
+          },
+        ]}
+        finalContent={
+          <>
+            <div>
+              <h4>Não consegue cadastrar sua foto?</h4>
+              <ButtonRegister onClick={openImageInputModal}>
+                Enviar arquivo de foto
+              </ButtonRegister>
+            </div>
+            <div>
+              <h4>Já possui login?</h4>
+              <ButtonRegister onClick={() => navigate("/")}>
+                Faça login
+              </ButtonRegister>
+            </div>
+          </>
+        }
       />
       <Modal
         content={cameraModalContent()}
         show={showCameraModal}
         setShowCallback={closeCameraModal}
+      />
+      <Modal
+        content={imageFileInputModalContent()}
+        show={showImageInputModal}
+        setShowCallback={setShowImageInputModal}
       />
     </>
   );
