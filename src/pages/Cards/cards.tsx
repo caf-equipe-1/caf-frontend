@@ -41,6 +41,44 @@ export function Cards() {
   });
   const [updatedCardId, setUpdatedCardId] = useState<string>("");
 
+  function validateCreationFields() {
+    if (createdCard.nickname.toString().trim() === "") {
+      alert("Preencha o nome o cartão");
+      return false;
+    }
+
+    if (
+      createdCard.password.toString().trim() === "" ||
+      createdCard.password.toString().trim() === "0"
+    ) {
+      alert("Preencha a senha");
+      return false;
+    }
+
+    if (createdCard.name.toString().trim() === "") {
+      alert("Preencha o nome do titular do cartão");
+      return false;
+    }
+
+    if (
+      createdCard.number.toString().trim() === "" ||
+      createdCard.number.toString().trim() === "0"
+    ) {
+      alert("Preencha o número do cartão");
+      return false;
+    }
+
+    if (
+      createdCard.securityCode.toString().trim() === "" ||
+      createdCard.securityCode.toString().trim() === "0"
+    ) {
+      alert("Preencha o código de segurança");
+      return false;
+    }
+
+    return true;
+  }
+
   function getCardsFromApi() {
     cardRouter.getAll().then(function (response: HttpResponse<CardEntity[]>) {
       if (response.body) {
@@ -109,6 +147,10 @@ export function Cards() {
   }
 
   function createCard() {
+    if (!validateCreationFields()) {
+      return;
+    }
+
     dispatch(addCardStore(createdCard));
     setOpenCreationModal(false);
 

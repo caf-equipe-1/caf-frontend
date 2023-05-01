@@ -37,7 +37,39 @@ export function Login() {
     selfie: "",
   });
 
+  function validateEmailLoginFields() {
+    if (emailLoginData.email.toString().trim() === "") {
+      alert("Preencha o email");
+      return false;
+    }
+
+    if (emailLoginData.password.toString().trim() === "") {
+      alert("Preencha a senha");
+      return false;
+    }
+
+    return true;
+  }
+
+  function validateSelfieLoginFields() {
+    if (selfieLoginData.cpf.toString().trim() === "") {
+      alert("Preencha o CPF");
+      return false;
+    }
+
+    if (selfieLoginData.selfie.toString().trim() === "") {
+      alert("Capture a foto");
+      return false;
+    }
+
+    return true;
+  }
+
   function handleEmailLogin() {
+    if (!validateEmailLoginFields()) {
+      return;
+    }
+
     setLoading(true);
     const loginRouter = makeEmailLoginRouterFactory();
 
@@ -59,6 +91,10 @@ export function Login() {
   }
 
   function handleSelfieLogin() {
+    if (!validateSelfieLoginFields()) {
+      return;
+    }
+
     setLoading(true);
     const loginRouter = makeSelfieLoginRouterFactory();
 

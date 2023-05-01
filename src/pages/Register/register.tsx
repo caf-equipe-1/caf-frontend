@@ -29,7 +29,36 @@ export function Register() {
     photo: "",
   });
 
+  function validateFields() {
+    if (userInfo.name.toString().trim() === "") {
+      alert("Preencha o nome");
+      return false;
+    }
+    if (userInfo.email.toString().trim() === "") {
+      alert("Preencha o email");
+      return false;
+    }
+    if (userInfo.cpf.toString().trim() === "") {
+      alert("Preencha o CPF");
+      return false;
+    }
+    if (userInfo.password.toString().trim() === "") {
+      alert("Preencha a senha");
+      return false;
+    }
+    if (userInfo.photo.toString().trim() === "") {
+      alert("Preencha o photo");
+      return false;
+    }
+
+    return true;
+  }
+
   function handleRegistration() {
+    if (!validateFields()) {
+      return;
+    }
+
     setLoading(true);
     const userRegistrationRouter = makeUserRouterFactory();
 

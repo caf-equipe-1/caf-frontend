@@ -38,6 +38,20 @@ export function Passwords() {
   });
   const [updatedPasswordId, setUpdatedPasswordId] = useState<string>("");
 
+  function validateCreationFields() {
+    if (createdPassword.name.toString().trim() === "") {
+      alert("Preencha o nome da senha");
+      return false;
+    }
+
+    if (createdPassword.password.toString().trim() === "") {
+      alert("Preencha a senha");
+      return false;
+    }
+
+    return true;
+  }
+
   function getPasswordsFromApi() {
     passwordRouter.getAll().then(function (response: HttpResponse<Password[]>) {
       if (response.body) {
@@ -88,6 +102,10 @@ export function Passwords() {
   }
 
   function createPassword() {
+    if (!validateCreationFields()) {
+      return;
+    }
+
     dispatch(addPasswordStore(createdPassword));
     setOpenCreationModal(false);
     passwordRouter

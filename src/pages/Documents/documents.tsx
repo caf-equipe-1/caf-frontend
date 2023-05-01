@@ -38,6 +38,20 @@ export function Documents() {
   });
   const [documentId, setDocumentId] = useState<string>("");
 
+  function validateCreationFields() {
+    if (createdDocument.name.toString().trim() === "") {
+      alert("Preencha o nome do documento");
+      return false;
+    }
+
+    if (createdDocument.document.toString().trim() === "") {
+      alert("Envie o arquivo");
+      return false;
+    }
+
+    return true;
+  }
+
   function getDocumentsFromApi() {
     documentRouter.getAll().then(function (response: HttpResponse<Document[]>) {
       if (response.body) {
@@ -85,6 +99,10 @@ export function Documents() {
   }
 
   function createDocument() {
+    if (!validateCreationFields()) {
+      return;
+    }
+
     if (!getFileType(createdDocument.document || "")) {
       alert("Tipo de arquivo inválido");
 
