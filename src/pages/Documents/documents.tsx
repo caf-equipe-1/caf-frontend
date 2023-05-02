@@ -19,6 +19,7 @@ import {
   deleteDocumentStore,
   updateDocumentStore,
 } from "../../store/slices/document-slice";
+import { StyledIframe } from "./styles";
 
 export function Documents() {
   const dispatch = useDispatch();
@@ -37,6 +38,8 @@ export function Documents() {
     document: "",
   });
   const [documentId, setDocumentId] = useState<string>("");
+  const [documentViewLink, setDocumentViewLink] = useState<string>("");
+  const [documentViewModal, setDocumentViewModal] = useState<boolean>(false);
 
   function validateCreationFields() {
     if (createdDocument.name.toString().trim() === "") {
@@ -72,6 +75,7 @@ export function Documents() {
           editCallback={openUpdateDocumentModal}
           downloadButton={true}
           downloadCallback={downloadDocument}
+          viewCallback={viewDocument}
         />
       );
     });
@@ -253,7 +257,6 @@ export function Documents() {
 
     if (foundDocument) {
       const encodedDocument = foundDocument.document;
-
       const fileType = getFileType(encodedDocument);
 
       if (fileType) {
@@ -263,6 +266,49 @@ export function Documents() {
         link.click();
       }
     }
+  }
+
+  function viewDocument(documentId: string) {
+    const foundDocument = storedDocuments.find(function (item) {
+      return item.id.toString() === documentId;
+    });
+
+    if (foundDocument) {
+      const encodedDocument = foundDocument.document;
+      const fileType = getFileType(encodedDocument);
+
+      if (
+        fileType === "txt" ||
+        fileType === "jpeg" ||
+        fileType === "png" ||
+        fileType === "pdf"
+      ) {
+        const byteString = atob(encodedDocument.split(",")[1]);
+        const mimeType = encodedDocument
+          .split(",")[0]
+          .split(":")[1]
+          .split(";")[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+
+        const blob = new Blob([ab], { type: mimeType });
+        setDocumentViewLink(URL.createObjectURL(blob));
+        setDocumentViewModal(true);
+      } else {
+        alert("Visualização indisponível para esse formato, faça o download");
+      }
+    }
+  }
+
+  function documentViewModalContent() {
+    return documentViewLink && documentViewLink.trim() !== "" ? (
+      <StyledIframe id="docViewer" src={documentViewLink} />
+    ) : (
+      <></>
+    );
   }
 
   return (
@@ -279,6 +325,11 @@ export function Documents() {
         show={openUpdateModal}
         setShowCallback={setOpenUpdateModal}
         content={updateDocumentForm()}
+      />
+      <Modal
+        show={documentViewModal}
+        setShowCallback={setDocumentViewModal}
+        content={documentViewModalContent()}
       />
     </>
   );
