@@ -11,6 +11,7 @@ import {
   StyledDeleteButton,
   StyledDownloadButton,
   StyledHideButton,
+  StyledViewButton,
 } from "./styles";
 import { FlexBody } from "../flexBody";
 import copyButtonIcon from "../../Img/components/copy-button.png";
@@ -33,6 +34,7 @@ type Props = {
   editCallback: (entityId: string) => void;
   deleteCallback: (entityId: string) => void;
   downloadCallback?: (entityId: string) => void;
+  viewCallback?: (entityId: string) => void;
 };
 
 export function Card({
@@ -43,6 +45,7 @@ export function Card({
   deleteCallback,
   editCallback,
   downloadCallback,
+  viewCallback,
 }: Props) {
   const [cardContent, setCardContent] = useState(
     content.map(function (item) {
@@ -135,21 +138,28 @@ export function Card({
     );
   }
 
+  function renderViewButton() {
+    return viewCallback && viewCallback ? (
+      <StyledViewButton onClick={() => viewCallback(entityId)}>
+        <StyledButtonIcon src={openedEye} />
+      </StyledViewButton>
+    ) : (
+      <></>
+    );
+  }
+
   function renderActionButtons() {
     return (
-      <FlexBody
-        components={[
-          <StyledActionButtonsBody key={0}>
-            {renderDownloadButton()}
-            <StyledEditButton onClick={() => editCallback(entityId)}>
-              <StyledButtonIcon src={editButtonIcon} />
-            </StyledEditButton>
-            <StyledDeleteButton onClick={() => deleteCallback(entityId)}>
-              <StyledButtonIcon src={deleteButtonIcon} />
-            </StyledDeleteButton>
-          </StyledActionButtonsBody>,
-        ]}
-      />
+      <StyledActionButtonsBody key={0}>
+        {renderDownloadButton()}
+        {renderViewButton()}
+        <StyledEditButton onClick={() => editCallback(entityId)}>
+          <StyledButtonIcon src={editButtonIcon} />
+        </StyledEditButton>
+        <StyledDeleteButton onClick={() => deleteCallback(entityId)}>
+          <StyledButtonIcon src={deleteButtonIcon} />
+        </StyledDeleteButton>
+      </StyledActionButtonsBody>
     );
   }
 

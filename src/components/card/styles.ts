@@ -77,6 +77,7 @@ export const StyledEditButton = styled.button`
   border-radius: 5px;
   font-weight: bold;
   margin: auto;
+  margin: 5px;
   :hover {
     scale: 1.03;
     background-color: lightblue;
@@ -92,9 +93,26 @@ export const StyledDownloadButton = styled.button`
   border-radius: 5px;
   font-weight: bold;
   margin: auto;
+  margin: 5px;
   :hover {
     scale: 1.03;
     background-color: Lime;
+  }
+  box-shadow: 2px 2px 4px gray;
+`;
+
+export const StyledViewButton = styled.button`
+  height: 40px;
+  width: 40px;
+  background-color: Yellow;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: bold;
+  margin: auto;
+  margin: 5px;
+  :hover {
+    scale: 1.03;
+    background-color: Orange;
   }
   box-shadow: 2px 2px 4px gray;
 `;
@@ -106,7 +124,7 @@ export const StyledDeleteButton = styled.button`
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold;
-  margin: auto;
+  margin: 5px;
   :hover {
     scale: 1.03;
     background-color: lightblue;
@@ -123,7 +141,6 @@ export const StyledButtonIcon = styled.img`
 export const StyledActionButtonsBody = styled.div`
   padding: 5px;
   margin: 8px 0 0 0;
-  width: 150px;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-evenly;
 `;
