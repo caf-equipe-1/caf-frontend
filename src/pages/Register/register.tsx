@@ -11,6 +11,7 @@ import { CreateUserDto } from "../../domain/dtos/user/createUser-dto";
 import { Form } from "../../components/Form";
 import { Modal } from "../../components/modal";
 import { LoadingSpinner } from "../../components/loadingSpinner";
+import { PhotoInstructions } from "../../components/photoInstructions/photoInstructions";
 
 export function Register() {
   const navigate = useNavigate();
@@ -151,6 +152,7 @@ export function Register() {
           buttons={[]}
           finalContent={
             <div>
+              <PhotoInstructions />
               {videoRef && (
                 <>
                   <StyledVideo
