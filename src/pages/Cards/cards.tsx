@@ -248,7 +248,17 @@ export function Cards() {
   }
 
   function updateCard() {
-    dispatch(updateCardStore({ id: updatedCardId, body: updatedCard }));
+    dispatch(
+      updateCardStore({
+        id: updatedCardId,
+        body: {
+          ...updatedCard,
+          number: Number(updatedCard.number),
+          password: Number(updatedCard.password),
+          securityCode: Number(updatedCard.securityCode),
+        },
+      })
+    );
     setOpenUpdateModal(false);
 
     cardRouter
