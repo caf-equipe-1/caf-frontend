@@ -48,35 +48,33 @@ export function Profile() {
 
   function handleEdition() {
     const userRouter = makeUserRouterFactory();
+    const updatedUser = userInfo;
 
-    userRouter.update(loggedUser.id, userInfo).then(function (data) {
-      const updatedUser = userInfo;
+    if (updatedUser.name?.trim() === "") {
+      delete updatedUser.name;
+    }
 
-      if (updatedUser.name?.trim() === "") {
-        delete updatedUser.name;
-      }
+    if (updatedUser.email?.trim() === "") {
+      delete updatedUser.email;
+    }
 
-      if (updatedUser.email?.trim() === "") {
-        delete updatedUser.email;
-      }
+    if (updatedUser.password?.trim() === "") {
+      delete updatedUser.password;
+    }
 
-      if (updatedUser.password?.trim() === "") {
-        delete updatedUser.password;
-      }
+    if (updatedUser.cpf?.trim() === "") {
+      delete updatedUser.cpf;
+    }
 
-      if (updatedUser.cpf?.trim() === "") {
-        delete updatedUser.cpf;
-      }
+    if (updatedUser.photo?.trim() === "") {
+      delete updatedUser.photo;
+    }
 
-      if (updatedUser.photo?.trim() === "") {
-        delete updatedUser.photo;
-      }
-
+    userRouter.update(loggedUser.id, updatedUser).then(function (data) {
       if (data.error) {
         alert(data.message);
       } else {
         dispatch(editUser(userInfo));
-        alert("Perfil atualizado!");
       }
     });
   }
