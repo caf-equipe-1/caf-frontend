@@ -77,7 +77,7 @@ export const StyledEditButton = styled.button`
   border-radius: 5px;
   font-weight: bold;
   margin: auto;
-  margin: 5px;
+  margin: 3px;
   :hover {
     scale: 1.03;
     background-color: lightblue;
@@ -93,7 +93,7 @@ export const StyledDownloadButton = styled.button`
   border-radius: 5px;
   font-weight: bold;
   margin: auto;
-  margin: 5px;
+  margin: 3px;
   :hover {
     scale: 1.03;
     background-color: Lime;
@@ -109,7 +109,7 @@ export const StyledViewButton = styled.button`
   border-radius: 5px;
   font-weight: bold;
   margin: auto;
-  margin: 5px;
+  margin: 3px;
   :hover {
     scale: 1.03;
     background-color: Orange;
@@ -124,7 +124,7 @@ export const StyledDeleteButton = styled.button`
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold;
-  margin: 5px;
+  margin: 3px;
   :hover {
     scale: 1.03;
     background-color: lightblue;
