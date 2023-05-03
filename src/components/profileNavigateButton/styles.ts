@@ -9,13 +9,13 @@ export const StyledLogoutButton = styled.button`
   height: 50px;
   width: 50px;
   margin: auto 0 auto 0;
-  background-color: red;
+  background-color: #EA524C;
   cursor: pointer;
   border-radius: 50%;
   padding: 5px;
   :hover {
     scale: 1.1;
-    background-color: yellow;
+    background-color: #F2EAC3;
   }
   box-shadow: 2px 2px 4px gray;
 `;

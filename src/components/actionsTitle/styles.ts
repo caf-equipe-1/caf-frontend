@@ -11,12 +11,12 @@ export const AddEntityButton = styled.button`
   height: 50px;
   width: 50px;
   margin: auto 5px 0 5px;
-  background-color: LimeGreen;
+  background-color: #9BD0BA;
   cursor: pointer;
   border-radius: 50%;
   :hover {
     scale: 1.1;
-    background-color: Chartreuse;
+    background-color: #F2EAC3;
   }
   box-shadow: 2px 2px 4px gray;
 `;
