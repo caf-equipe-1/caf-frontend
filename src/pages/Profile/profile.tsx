@@ -9,6 +9,7 @@ import { makeUserRouterFactory } from "../../infra/api/factories/user/user-route
 import { editUser } from "../../store/slices/user-slice";
 import { Modal } from "../../components/modal";
 import { StyledImage, StyledSendImageButton, StyledVideo } from "./styles";
+import { PhotoInstructions } from "../../components/photoInstructions/photoInstructions";
 
 export function Profile() {
   const dispatch = useDispatch();
@@ -129,6 +130,7 @@ export function Profile() {
           buttons={[]}
           finalContent={
             <div>
+              <PhotoInstructions />
               {videoRef && (
                 <>
                   <StyledVideo

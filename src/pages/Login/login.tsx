@@ -18,6 +18,7 @@ import { SelfieLoginDto } from "../../domain/dtos/login/selfieLogin-dto";
 import { Modal } from "../../components/modal";
 import { makeSelfieLoginRouterFactory } from "../../infra/api/factories/login/selfieLogin-router-factory";
 import { LoadingSpinner } from "../../components/loadingSpinner";
+import { PhotoInstructions } from "../../components/photoInstructions/photoInstructions";
 
 export function Login() {
   const navigate = useNavigate();
@@ -284,6 +285,7 @@ export function Login() {
           buttons={[]}
           finalContent={
             <div>
+              <PhotoInstructions />
               {videoRef && (
                 <>
                   <StyledVideo
