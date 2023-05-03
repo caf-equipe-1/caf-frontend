@@ -262,7 +262,12 @@ export function Cards() {
     setOpenUpdateModal(false);
 
     cardRouter
-      .update(updatedCardId, updatedCard)
+      .update(updatedCardId, {
+        ...updatedCard,
+        number: Number(updatedCard.number),
+        password: Number(updatedCard.password),
+        securityCode: Number(updatedCard.securityCode),
+      })
       .then(function (response) {
         if (response.error) {
           alert(response.message);
