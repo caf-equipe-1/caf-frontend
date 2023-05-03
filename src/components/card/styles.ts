@@ -72,7 +72,7 @@ export const StyledHideButton = styled.button`
 export const StyledEditButton = styled.button`
   height: 40px;
   width: 40px;
-  background-color: CornflowerBlue;
+  background-color: #F5B561;
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold;
@@ -88,7 +88,7 @@ export const StyledEditButton = styled.button`
 export const StyledDownloadButton = styled.button`
   height: 40px;
   width: 40px;
-  background-color: LimeGreen;
+  background-color: #9BD0BA;
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold;
@@ -96,7 +96,7 @@ export const StyledDownloadButton = styled.button`
   margin: 3px;
   :hover {
     scale: 1.03;
-    background-color: Lime;
+    background-color: lightblue;
   }
   box-shadow: 2px 2px 4px gray;
 `;
@@ -104,7 +104,7 @@ export const StyledDownloadButton = styled.button`
 export const StyledViewButton = styled.button`
   height: 40px;
   width: 40px;
-  background-color: Yellow;
+  background-color: #F2EAC3;
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold;
@@ -112,7 +112,7 @@ export const StyledViewButton = styled.button`
   margin: 3px;
   :hover {
     scale: 1.03;
-    background-color: Orange;
+    background-color: lightblue;
   }
   box-shadow: 2px 2px 4px gray;
 `;
@@ -120,7 +120,7 @@ export const StyledViewButton = styled.button`
 export const StyledDeleteButton = styled.button`
   height: 40px;
   width: 40px;
-  background-color: Crimson;
+  background-color: #EA524C;
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold;
