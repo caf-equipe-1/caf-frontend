@@ -84,7 +84,6 @@ export function Login() {
           dispatch(addManyCardsStore(data.body.user.cards));
           dispatch(addManyDocumentsStore(data.body.user.documents));
         }
-        alert("Login realizado com sucesso!");
         navigate("/services");
       }
       setLoading(false);
