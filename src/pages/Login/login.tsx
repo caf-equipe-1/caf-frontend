@@ -19,6 +19,7 @@ import { Modal } from "../../components/modal";
 import { makeSelfieLoginRouterFactory } from "../../infra/api/factories/login/selfieLogin-router-factory";
 import { LoadingSpinner } from "../../components/loadingSpinner";
 import { PhotoInstructions } from "../../components/photoInstructions/photoInstructions";
+import { CpfFormatter } from "../../utils/cpfFormatter/cpfFormatter";
 
 export function Login() {
   const navigate = useNavigate();
@@ -79,7 +80,12 @@ export function Login() {
         alert(data.message);
       } else {
         if (data.body) {
-          dispatch(addUser(data.body.user));
+          dispatch(
+            addUser({
+              ...data.body.user,
+              cpf: CpfFormatter.addFormat(data.body.user.cpf),
+            })
+          );
           dispatch(addManyPasswordsStore(data.body.user.passwords));
           dispatch(addManyCardsStore(data.body.user.cards));
           dispatch(addManyDocumentsStore(data.body.user.documents));
@@ -98,21 +104,26 @@ export function Login() {
     setLoading(true);
     const loginRouter = makeSelfieLoginRouterFactory();
 
-    loginRouter.login(selfieLoginData).then(function (data) {
-      if (data.error) {
-        alert(data.message);
-      } else {
-        if (data.body) {
-          dispatch(addUser(data.body.user));
-          dispatch(addManyPasswordsStore(data.body.user.passwords));
-          dispatch(addManyCardsStore(data.body.user.cards));
-          dispatch(addManyDocumentsStore(data.body.user.documents));
+    loginRouter
+      .login({
+        ...selfieLoginData,
+        cpf: CpfFormatter.removeFormat(selfieLoginData.cpf),
+      })
+      .then(function (data) {
+        if (data.error) {
+          alert(data.message);
+        } else {
+          if (data.body) {
+            dispatch(addUser(data.body.user));
+            dispatch(addManyPasswordsStore(data.body.user.passwords));
+            dispatch(addManyCardsStore(data.body.user.cards));
+            dispatch(addManyDocumentsStore(data.body.user.documents));
+          }
+          alert("Login realizado com sucesso!");
+          navigate("/services");
         }
-        alert("Login realizado com sucesso!");
-        navigate("/services");
-      }
-      setLoading(false);
-    });
+        setLoading(false);
+      });
   }
 
   function onEmailChange(inputEmail: string) {
@@ -172,7 +183,10 @@ export function Login() {
   }
 
   function onCpfChange(inputCpf: string) {
-    setSelfieLoginData({ ...selfieLoginData, cpf: inputCpf });
+    setSelfieLoginData({
+      ...selfieLoginData,
+      cpf: CpfFormatter.addFormat(inputCpf.toString()),
+    });
   }
 
   function onImageChange(convertedImage: string) {

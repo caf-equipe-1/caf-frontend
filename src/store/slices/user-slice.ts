@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { User } from "../../domain/entities/user/user-entity";
 import { UpdateUserDto } from "../../domain/dtos/user/updateUser-dto";
+import { CpfFormatter } from "../../utils/cpfFormatter/cpfFormatter";
 
 type InitialState = {
   value: User;
@@ -27,7 +28,10 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     addUser(state, action: PayloadAction<User>) {
-      state.value = action.payload;
+      state.value = {
+        ...action.payload,
+        cpf: CpfFormatter.addFormat(action.payload.cpf),
+      };
     },
 
     editUser(state, action: PayloadAction<UpdateUserDto>) {
@@ -37,7 +41,7 @@ const userSlice = createSlice({
         email: action.payload.email ?? state.value.email,
         password: action.payload.password ?? state.value.password,
         photo: action.payload.photo ?? state.value.photo,
-        cpf: action.payload.cpf ?? state.value.cpf,
+        cpf: CpfFormatter.addFormat(action.payload.cpf ?? state.value.cpf),
         passwords: state.value.passwords,
         documents: state.value.documents,
         cards: state.value.cards,

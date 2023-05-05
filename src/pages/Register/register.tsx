@@ -12,6 +12,7 @@ import { Form } from "../../components/Form";
 import { Modal } from "../../components/modal";
 import { LoadingSpinner } from "../../components/loadingSpinner";
 import { PhotoInstructions } from "../../components/photoInstructions/photoInstructions";
+import { CpfFormatter } from "../../utils/cpfFormatter/cpfFormatter";
 
 export function Register() {
   const navigate = useNavigate();
@@ -63,15 +64,17 @@ export function Register() {
     setLoading(true);
     const userRegistrationRouter = makeUserRouterFactory();
 
-    userRegistrationRouter.create(userInfo).then(function (data) {
-      if (data.error) {
-        alert(data.message);
-      } else {
-        alert("Registrado com sucesso!");
-        navigate("/");
-      }
-      setLoading(false);
-    });
+    userRegistrationRouter
+      .create({ ...userInfo, cpf: CpfFormatter.removeFormat(userInfo.cpf) })
+      .then(function (data) {
+        if (data.error) {
+          alert(data.message);
+        } else {
+          alert("Registrado com sucesso!");
+          navigate("/");
+        }
+        setLoading(false);
+      });
   }
 
   function onNameChange(inputName: string) {
@@ -83,7 +86,10 @@ export function Register() {
   }
 
   function onCpfChange(inputCpf: string) {
-    setUserInfo({ ...userInfo, cpf: inputCpf.toString() });
+    setUserInfo({
+      ...userInfo,
+      cpf: CpfFormatter.addFormat(inputCpf.toString()),
+    });
   }
 
   function onPasswordChange(inputPassword: string) {
@@ -231,6 +237,7 @@ export function Register() {
             inputType: "text",
             placeholder: "Digite o seu CPF",
             onChangeCallback: onCpfChange,
+            defaultValue: userInfo.cpf,
           },
           {
             label: "Senha",

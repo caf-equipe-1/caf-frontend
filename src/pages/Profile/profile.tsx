@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form } from "../../components/Form";
 import { ActionsTitle } from "../../components/actionsTitle";
 import { Title } from "../../components/title";
@@ -10,6 +10,7 @@ import { editUser } from "../../store/slices/user-slice";
 import { Modal } from "../../components/modal";
 import { StyledImage, StyledSendImageButton, StyledVideo } from "./styles";
 import { PhotoInstructions } from "../../components/photoInstructions/photoInstructions";
+import { CpfFormatter } from "../../utils/cpfFormatter/cpfFormatter";
 
 export function Profile() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export function Profile() {
     name: loggedUser.name,
     email: loggedUser.email,
     password: "",
-    cpf: loggedUser.cpf,
+    cpf: CpfFormatter.addFormat(loggedUser.cpf),
     photo: loggedUser.photo,
   });
 
@@ -39,7 +40,10 @@ export function Profile() {
   }
 
   function onCpfChange(inputCpf: string) {
-    setUserInfo({ ...userInfo, cpf: inputCpf });
+    setUserInfo({
+      ...userInfo,
+      cpf: CpfFormatter.addFormat(inputCpf.toString()),
+    });
   }
 
   function onPhotoChange(inputPhoto: string) {
@@ -64,6 +68,8 @@ export function Profile() {
 
     if (updatedUser.cpf?.trim() === "") {
       delete updatedUser.cpf;
+    } else if (updatedUser.cpf) {
+      updatedUser.cpf = CpfFormatter.removeFormat(updatedUser.cpf);
     }
 
     if (updatedUser.photo?.trim() === "") {
@@ -74,7 +80,12 @@ export function Profile() {
       if (data.error) {
         alert(data.message);
       } else {
-        dispatch(editUser(userInfo));
+        const newUser = {
+          ...userInfo,
+          cpf: CpfFormatter.addFormat(userInfo.cpf || ""),
+        };
+
+        dispatch(editUser(newUser));
       }
     });
   }
@@ -163,6 +174,19 @@ export function Profile() {
     audio: false,
     video: true,
   };
+
+  useEffect(
+    function () {
+      setUserInfo({
+        name: loggedUser.name,
+        email: loggedUser.email,
+        password: "",
+        cpf: CpfFormatter.addFormat(loggedUser.cpf),
+        photo: loggedUser.photo,
+      });
+    },
+    [loggedUser]
+  );
 
   return (
     <>
