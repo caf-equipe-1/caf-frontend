@@ -36,18 +36,32 @@ export function Register() {
       alert("Preencha o nome");
       return false;
     }
+
     if (userInfo.email.toString().trim() === "") {
       alert("Preencha o email");
       return false;
     }
+
+    if (!userInfo.email.includes("@") || !userInfo.email.includes(".")) {
+      alert("Email inválido");
+      return false;
+    }
+
     if (userInfo.cpf.toString().trim() === "") {
       alert("Preencha o CPF");
       return false;
     }
+
+    if (CpfFormatter.removeFormat(userInfo.cpf.toString()).length !== 11) {
+      alert("CPF inválido");
+      return false;
+    }
+
     if (userInfo.password.toString().trim() === "") {
       alert("Preencha a senha");
       return false;
     }
+
     if (userInfo.photo.toString().trim() === "") {
       alert("Preencha o photo");
       return false;

@@ -45,6 +45,14 @@ export function Login() {
       return false;
     }
 
+    if (
+      !emailLoginData.email.includes("@") ||
+      !emailLoginData.email.includes(".")
+    ) {
+      alert("Email inválido");
+      return false;
+    }
+
     if (emailLoginData.password.toString().trim() === "") {
       alert("Preencha a senha");
       return false;
@@ -56,6 +64,13 @@ export function Login() {
   function validateSelfieLoginFields() {
     if (selfieLoginData.cpf.toString().trim() === "") {
       alert("Preencha o CPF");
+      return false;
+    }
+
+    if (
+      CpfFormatter.removeFormat(selfieLoginData.cpf.toString()).length !== 11
+    ) {
+      alert("CPF inválido");
       return false;
     }
 

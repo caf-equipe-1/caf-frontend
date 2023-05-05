@@ -27,6 +27,20 @@ export function Profile() {
     photo: loggedUser.photo,
   });
 
+  function validateFields() {
+    if (!loggedUser.email.includes("@") || !loggedUser.email.includes(".")) {
+      alert("Email inválido");
+      return false;
+    }
+
+    if (CpfFormatter.removeFormat(loggedUser.cpf.toString()).length !== 11) {
+      alert("CPF inválido");
+      return false;
+    }
+
+    return true;
+  }
+
   function onNameChange(inputName: string) {
     setUserInfo({ ...userInfo, name: inputName });
   }
@@ -51,6 +65,10 @@ export function Profile() {
   }
 
   function handleEdition() {
+    if (!validateFields()) {
+      return;
+    }
+
     const userRouter = makeUserRouterFactory();
     const updatedUser = userInfo;
 
